@@ -1,4 +1,193 @@
-<!-- NG-ZORRO -->
-<a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
-  <img height="300" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">
-</a>
+<nz-layout class="layout">
+  <nz-header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="/img/logo.png" alt="雪谷南榕法律事務所" class="logo-img" />
+        <!-- <span class="logo-text">雪谷南榕法律事務所</span> -->
+      </div>
+      <ul nz-menu nzMode="horizontal" class="nav-menu">
+        <li nz-menu-item>
+          <a href="#about">
+            <span class="nav-zh">關於雪谷南榕</span>
+            <span class="nav-en">About Us</span>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a href="#lawyers">
+            <span class="nav-zh">律師簡介</span>
+            <span class="nav-en">Our Lawyers</span>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a href="#articles">
+            <span class="nav-zh">言論選輯</span>
+            <span class="nav-en">Articles</span>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a href="#contact">
+            <span class="nav-zh">聯絡我們</span>
+            <span class="nav-en">Contact Us</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nz-header>
+
+  <nz-content>
+    <!-- Hero Banner 輪播 -->
+    <section class="hero-section">
+      <nz-carousel nzAutoPlay [nzDotPosition]="'bottom'" class="hero-carousel">
+        <div nz-carousel-content *ngFor="let slide of heroSlides" class="hero-slide">
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <h1 class="hero-quote">{{ slide.quote }}</h1>
+            <p class="hero-author" *ngIf="slide.author">— {{ slide.author }}</p>
+          </div>
+        </div>
+      </nz-carousel>
+    </section>
+
+    <!-- 關於我們 -->
+    <section id="about" class="section about-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-icon">⚖</span>
+          <h2 class="section-title">About Us</h2>
+          <p class="section-subtitle">關於雪谷南榕</p>
+        </div>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              洪仲丘案件承辦時期，德晴法律事務所的邱顯智律師、暮蟬法律事務所的劉繼蔚律師、
+              衛道法律事務所的王俊凱律師以及李宣毅律師，共同決議合併三所成立「雪谷南榕法律事務所」，
+              希冀承辦關廠以及洪案的初心延續。
+            </p>
+            <p>
+              雪谷是蔣渭水的號，雪谷是台灣社會的臨床主治醫師；南榕是台灣言論自由的追求者、
+              促使權威解體的證道者。兩者名字結合的印象是，在冰寒雪谷中，竟出現常綠的榕樹。
+              冰冷的困境中，希望之綠仍然存在。
+            </p>
+            <p class="highlight-text">
+              許多案件的追求，都是絕望工程。但，在價值追求的道路上，並不是因為有希望所以堅持，
+              而是因為堅持，才看見希望。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 律師介紹 -->
+    <section id="lawyers" class="section lawyers-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-icon">👥</span>
+          <h2 class="section-title">Our Lawyers</h2>
+          <p class="section-subtitle">律師介紹</p>
+        </div>
+        <div nz-row [nzGutter]="[24, 24]" class="lawyers-grid">
+          <div nz-col [nzXs]="12" [nzSm]="8" [nzMd]="6" *ngFor="let lawyer of lawyers">
+            <nz-card class="lawyer-card" [nzBordered]="false" nzHoverable>
+              <div class="lawyer-avatar-wrapper">
+                <nz-avatar
+                  [nzSize]="120"
+                  [nzSrc]="lawyer.avatar"
+                  nzIcon="user"
+                  class="lawyer-avatar">
+                </nz-avatar>
+                <div class="lawyer-avatar-ring"></div>
+              </div>
+              <h3 class="lawyer-name">{{ lawyer.name }}</h3>
+              <p class="lawyer-title">{{ lawyer.title }}</p>
+              <div class="lawyer-specialty">
+                <span *ngFor="let s of lawyer.specialty" class="specialty-tag">{{ s }}</span>
+              </div>
+            </nz-card>
+          </div>
+        </div>
+        <div class="more-lawyers">
+          <button nz-button nzType="default" nzSize="large" class="more-btn">
+            <span>更多律師</span>
+            <span nz-icon nzType="arrow-right"></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 言論選輯 -->
+    <section id="articles" class="section articles-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-icon">📜</span>
+          <h2 class="section-title">Articles</h2>
+          <p class="section-subtitle">言論選輯</p>
+        </div>
+        <div class="articles-timeline">
+          <nz-timeline nzMode="alternate">
+            <nz-timeline-item *ngFor="let article of articles" [nzColor]="'#2d5a27'">
+              <nz-card class="article-card" [nzBordered]="false" nzHoverable>
+                <span class="article-date">{{ article.date }}</span>
+                <h3 class="article-title">{{ article.title }}</h3>
+                <p class="article-author">發文者：{{ article.author }}</p>
+              </nz-card>
+            </nz-timeline-item>
+          </nz-timeline>
+        </div>
+        <div class="more-articles">
+          <button nz-button nzType="primary" nzSize="large" class="more-btn">
+            <span>查看更多</span>
+            <span nz-icon nzType="read"></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 聯絡我們 -->
+    <section id="contact" class="section contact-section">
+      <div class="section-container">
+        <div class="section-header light">
+          <span class="section-icon">📍</span>
+          <h2 class="section-title">Contact</h2>
+          <p class="section-subtitle">聯絡我們</p>
+        </div>
+        <div nz-row [nzGutter]="[48, 24]" class="offices-grid">
+          <div nz-col [nzXs]="24" [nzMd]="12" *ngFor="let office of offices">
+            <nz-card class="office-card" [nzBordered]="false">
+              <h3 class="office-name">
+                <span nz-icon nzType="bank" nzTheme="outline"></span>
+                {{ office.name }}
+              </h3>
+              <div class="office-info">
+                <p class="office-address">
+                  <span nz-icon nzType="environment" nzTheme="outline"></span>
+                  {{ office.address }}
+                </p>
+                <p class="office-tel" *ngFor="let tel of office.tel">
+                  <span nz-icon nzType="phone" nzTheme="outline"></span>
+                  TEL {{ tel }}
+                </p>
+                <p class="office-fax">
+                  <span nz-icon nzType="printer" nzTheme="outline"></span>
+                  FAX {{ office.fax }}
+                </p>
+              </div>
+            </nz-card>
+          </div>
+        </div>
+      </div>
+    </section>
+  </nz-content>
+
+  <!-- 頁尾 -->
+  <nz-footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span class="footer-name">雪谷南榕法律事務所</span>
+      </div>
+      <nz-divider nzType="vertical" class="footer-divider"></nz-divider>
+      <p class="copyright">Copyright © 2025 雪谷南榕法律事務所 All Rights Reserved.</p>
+    </div>
+  </nz-footer>
+
+  <nz-back-top></nz-back-top>
+</nz-layout>

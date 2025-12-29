@@ -1,6 +1,139 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
 html, body {
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }
 
 html, body { height: 100%; overflow-x: hidden;}
+
+:root {
+  --primary-green: #2d5a27;
+  --dark-green: #1a3518;
+  --light-green: #4a7c43;
+  --accent-gold: #c9a961;
+  --cream: #faf8f5;
+  --dark-text: #1a1a1a;
+  --light-text: #f5f5f5;
+}
+
+/* 全域重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+  background-color: var(--cream);
+  color: var(--dark-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 覆寫 NG-ZORRO 主題色 */
+.ant-btn-primary {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background-color: var(--light-green);
+  border-color: var(--light-green);
+}
+
+/* 輪播指示器樣式 */
+.ant-carousel .slick-dots li button {
+  background: rgba(255, 255, 255, 0.4);
+  height: 4px;
+  border-radius: 2px;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  background: var(--accent-gold);
+  width: 32px;
+}
+
+/* 時間軸樣式 */
+.ant-timeline-item-head {
+  background-color: var(--primary-green) !important;
+  border-color: var(--primary-green) !important;
+}
+
+.ant-timeline-item-tail {
+  border-left-color: var(--light-green) !important;
+}
+
+/* 返回頂部按鈕 */
+.ant-back-top {
+  right: 32px;
+  bottom: 32px;
+}
+
+.ant-back-top-content {
+  background-color: var(--primary-green);
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(45, 90, 39, 0.3);
+}
+
+.ant-back-top-content:hover {
+  background-color: var(--dark-green);
+}
+
+/* 選取文字顏色 */
+::selection {
+  background-color: var(--accent-gold);
+  color: var(--dark-text);
+}
+
+/* 滾動條樣式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--light-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-green);
+}
+
+/* 連結樣式 */
+a {
+  color: var(--primary-green);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--light-green);
+}
+
+/* 動畫 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
