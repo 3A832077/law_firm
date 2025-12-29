@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
@@ -11,8 +11,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
+import { RouterLink } from '@angular/router';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { RevealOnScrollDirective } from './directive/reveal-on-scroll.directive';
 interface Lawyer {
   id: number;
   name: string;
@@ -41,7 +43,8 @@ interface Office {
       NzCarouselModule, NzCardModule, NzGridModule,
       NzAvatarModule, NzDividerModule, NzButtonModule,
       NzIconModule, NzAnchorModule, NzTypographyModule,
-      NzBackTopModule, NzTimelineModule
+      NzTimelineModule, RouterLink, NzDrawerModule,
+      RevealOnScrollDirective
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
@@ -64,15 +67,15 @@ export class AppComponent implements OnInit {
   ];
 
   lawyers: Lawyer[] = [
-    { id: 3, name: '邱顯智', title: '律師', avatar: '', specialty: ['人權訴訟', '刑事辯護'] },
-    { id: 4, name: '劉繼蔚', title: '律師', avatar: '', specialty: ['憲法訴訟', '行政訴訟'] },
-    { id: 6, name: '李宣毅', title: '律師', avatar: '', specialty: ['刑事辯護', '民事訴訟'] },
-    { id: 7, name: '王逸青', title: '律師', avatar: '', specialty: ['勞動法', '民事訴訟'] },
-    { id: 8, name: '余柏儒', title: '律師', avatar: '', specialty: ['刑事辯護'] },
-    { id: 9, name: '吳俊龍', title: '律師', avatar: '', specialty: ['民事訴訟'] },
-    { id: 11, name: '莊家亨', title: '律師', avatar: '', specialty: ['商事法'] },
-    { id: 24, name: '劉育承', title: '律師', avatar: '', specialty: ['刑事辯護'] },
-    { id: 28, name: '黃守鵬', title: '律師', avatar: '', specialty: ['民事訴訟'] },
+    { id: 3, name: '邱顯智', title: '律師', avatar: 'lawyer1.jpg', specialty: ['人權訴訟', '刑事辯護'] },
+    { id: 4, name: '劉繼蔚', title: '律師', avatar: 'lawyer2.jpg', specialty: ['憲法訴訟', '行政訴訟'] },
+    { id: 6, name: '李宣毅', title: '律師', avatar: 'lawyer3.jpg', specialty: ['刑事辯護', '民事訴訟'] },
+    { id: 7, name: '王逸青', title: '律師', avatar: 'lawyer4.jpg', specialty: ['勞動法', '民事訴訟'] },
+    { id: 8, name: '余柏儒', title: '律師', avatar: 'lawyer5.jpg', specialty: ['刑事辯護'] },
+    { id: 9, name: '吳俊龍', title: '律師', avatar: 'lawyer6.jpg', specialty: ['民事訴訟'] },
+    { id: 11, name: '莊家亨', title: '律師', avatar: 'lawyer7.jpg', specialty: ['商事法'] },
+    { id: 24, name: '劉育承', title: '律師', avatar: 'lawyer8.jpg', specialty: ['刑事辯護'] },
+    { id: 28, name: '黃守鵬', title: '律師', avatar: 'lawyer9.jpg', specialty: ['民事訴訟'] },
   ];
 
   articles: Article[] = [
@@ -99,8 +102,21 @@ export class AppComponent implements OnInit {
     }
   ];
 
+  mobileMenuOpen = false;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+
   ngOnInit(): void {
 
+  }
+
+  goTo(hash: string): void {
+    this.mobileMenuOpen = false;
+
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const id = hash.replace('#', '');
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
 }

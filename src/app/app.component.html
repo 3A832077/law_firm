@@ -2,8 +2,7 @@
   <nz-header class="header">
     <div class="header-content">
       <div class="logo">
-        <img src="/img/logo.png" alt="雪谷南榕法律事務所" class="logo-img" />
-        <!-- <span class="logo-text">雪谷南榕法律事務所</span> -->
+        <img src="/img/logo.png" alt="雪谷南榕法律事務所" class="logo-img" routerLink="/"/>
       </div>
       <ul nz-menu nzMode="horizontal" class="nav-menu">
         <li nz-menu-item>
@@ -32,24 +31,27 @@
         </li>
       </ul>
     </div>
+
   </nz-header>
 
   <nz-content>
-    <!-- Hero Banner 輪播 -->
-    <section class="hero-section">
-      <nz-carousel nzAutoPlay [nzDotPosition]="'bottom'" class="hero-carousel">
-        <div nz-carousel-content *ngFor="let slide of heroSlides" class="hero-slide">
+    <!-- 輪播 -->
+    <nz-carousel nzAutoPlay [nzDotPosition]="'bottom'" class="hero-carousel" nzArrows nzEnableSwipe="false">
+      @for (item of heroSlides; track $index) {
+        <div nz-carousel-content class="hero-slide">
           <div class="hero-overlay"></div>
           <div class="hero-content">
-            <h1 class="hero-quote">{{ slide.quote }}</h1>
-            <p class="hero-author" *ngIf="slide.author">— {{ slide.author }}</p>
+            <h1 class="hero-quote">{{ item.quote }}</h1>
+            @if (item.author) {
+              <p class="hero-author">— {{ item.author }}</p>
+            }
           </div>
         </div>
-      </nz-carousel>
-    </section>
+      }
+    </nz-carousel>
 
     <!-- 關於我們 -->
-    <section id="about" class="section about-section">
+    <div id="about" class="section about-section reveal reveal--in" revealOnScroll >
       <div class="section-container">
         <div class="section-header">
           <span class="section-icon">⚖</span>
@@ -75,10 +77,10 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- 律師介紹 -->
-    <section id="lawyers" class="section lawyers-section">
+    <div id="lawyers" class="section lawyers-section reveal reveal--in" revealOnScroll>
       <div class="section-container">
         <div class="section-header">
           <span class="section-icon">👥</span>
@@ -86,36 +88,39 @@
           <p class="section-subtitle">律師介紹</p>
         </div>
         <div nz-row [nzGutter]="[24, 24]" class="lawyers-grid">
-          <div nz-col [nzXs]="12" [nzSm]="8" [nzMd]="6" *ngFor="let lawyer of lawyers">
+          @for (item of lawyers; track $index) {
+          <div nz-col [nzXs]="12" [nzSm]="8" [nzMd]="6">
             <nz-card class="lawyer-card" [nzBordered]="false" nzHoverable>
               <div class="lawyer-avatar-wrapper">
-                <nz-avatar
-                  [nzSize]="120"
-                  [nzSrc]="lawyer.avatar"
-                  nzIcon="user"
-                  class="lawyer-avatar">
-                </nz-avatar>
-                <div class="lawyer-avatar-ring"></div>
+                 <img
+                  class="lawyer-photo"
+                  [src]="'img/' + item.avatar"
+                  [alt]="item.name"
+                  loading="lazy"
+                />
               </div>
-              <h3 class="lawyer-name">{{ lawyer.name }}</h3>
-              <p class="lawyer-title">{{ lawyer.title }}</p>
+              <h3 class="lawyer-name">{{ item.name }}</h3>
+              <p class="lawyer-title">{{ item.title }}</p>
               <div class="lawyer-specialty">
-                <span *ngFor="let s of lawyer.specialty" class="specialty-tag">{{ s }}</span>
+                @for (item of item.specialty; track $index) {
+                  <span class="specialty-tag">{{ item }}</span>
+                }
               </div>
             </nz-card>
           </div>
+        }
         </div>
         <div class="more-lawyers">
-          <button nz-button nzType="default" nzSize="large" class="more-btn">
+          <button nz-button nzSize="large" class="more-btn">
             <span>更多律師</span>
             <span nz-icon nzType="arrow-right"></span>
           </button>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- 言論選輯 -->
-    <section id="articles" class="section articles-section">
+    <!-- 文章 -->
+    <div id="articles" class="section articles-section reveal reveal--in" revealOnScroll>
       <div class="section-container">
         <div class="section-header">
           <span class="section-icon">📜</span>
@@ -124,26 +129,28 @@
         </div>
         <div class="articles-timeline">
           <nz-timeline nzMode="alternate">
-            <nz-timeline-item *ngFor="let article of articles" [nzColor]="'#2d5a27'">
-              <nz-card class="article-card" [nzBordered]="false" nzHoverable>
-                <span class="article-date">{{ article.date }}</span>
-                <h3 class="article-title">{{ article.title }}</h3>
-                <p class="article-author">發文者：{{ article.author }}</p>
-              </nz-card>
-            </nz-timeline-item>
+            @for (item of articles; track $index) {
+              <nz-timeline-item nzColor="#2d5a27">
+                <nz-card class="article-card" [nzBordered]="false" nzHoverable>
+                  <span class="article-date">{{ item.date }}</span>
+                  <h3 class="article-title">{{ item.title }}</h3>
+                  <p class="article-author">發文者：{{ item.author }}</p>
+                </nz-card>
+              </nz-timeline-item>
+            }
           </nz-timeline>
         </div>
         <div class="more-articles">
-          <button nz-button nzType="primary" nzSize="large" class="more-btn">
+          <button nz-button nzSize="large" class="more-btn">
             <span>查看更多</span>
             <span nz-icon nzType="read"></span>
           </button>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- 聯絡我們 -->
-    <section id="contact" class="section contact-section">
+    <div id="contact" class="section contact-section reveal reveal--in" revealOnScroll>
       <div class="section-container">
         <div class="section-header light">
           <span class="section-icon">📍</span>
@@ -151,21 +158,24 @@
           <p class="section-subtitle">聯絡我們</p>
         </div>
         <div nz-row [nzGutter]="[48, 24]" class="offices-grid">
-          <div nz-col [nzXs]="24" [nzMd]="12" *ngFor="let office of offices">
-            <nz-card class="office-card" [nzBordered]="false">
-              <h3 class="office-name">
-                <span nz-icon nzType="bank" nzTheme="outline"></span>
-                {{ office.name }}
+          @for (office of offices; track $index) {
+            <div nz-col [nzXs]="24" [nzMd]="12">
+              <nz-card class="office-card" [nzBordered]="false">
+                <h3 class="office-name">
+                  <span nz-icon nzType="bank" nzTheme="outline"></span>
+                  {{ office.name }}
               </h3>
               <div class="office-info">
                 <p class="office-address">
                   <span nz-icon nzType="environment" nzTheme="outline"></span>
                   {{ office.address }}
                 </p>
-                <p class="office-tel" *ngFor="let tel of office.tel">
-                  <span nz-icon nzType="phone" nzTheme="outline"></span>
-                  TEL {{ tel }}
-                </p>
+                @for (item of office.tel; track $index) {
+                  <p class="office-tel">
+                    <span nz-icon nzType="phone" nzTheme="outline"></span>
+                    TEL {{ item }}
+                  </p>
+                }
                 <p class="office-fax">
                   <span nz-icon nzType="printer" nzTheme="outline"></span>
                   FAX {{ office.fax }}
@@ -173,12 +183,14 @@
               </div>
             </nz-card>
           </div>
+        }
         </div>
       </div>
-    </section>
+    </div>
   </nz-content>
 
   <!-- 頁尾 -->
+  <nz-divider></nz-divider>
   <nz-footer class="footer">
     <div class="footer-content">
       <div class="footer-logo">
@@ -188,6 +200,4 @@
       <p class="copyright">Copyright © 2025 雪谷南榕法律事務所 All Rights Reserved.</p>
     </div>
   </nz-footer>
-
-  <nz-back-top></nz-back-top>
 </nz-layout>

@@ -14,7 +14,8 @@ import { provideNzIcons } from 'ng-zorro-antd/icon';
 registerLocaleData(zh);
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }),
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(),
     provideNzIcons(icons),

@@ -18,13 +18,14 @@
 
 /* Header */
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
   height: 80px;
+  line-height: 80px;
   padding: 0 48px;
   box-shadow: var(--shadow-medium);
 }
@@ -60,7 +61,7 @@
 .nav-menu {
   background: transparent;
   border: none;
-  line-height: 80px;
+  line-height: normal;
 }
 
 .nav-menu ::ng-deep .ant-menu-item {
@@ -165,10 +166,11 @@
   margin-bottom: 64px;
 }
 
-.section-header.light .section-title,
+
+/* .section-header.light .section-title,
 .section-header.light .section-subtitle {
   color: var(--light-text);
-}
+} */
 
 .section-icon {
   font-size: 2rem;
@@ -200,7 +202,6 @@
 
 .about-content {
   display: grid;
-  grid-template-columns: 2fr 1fr;
   gap: 64px;
   align-items: center;
 }
@@ -252,7 +253,7 @@
 
 /* Lawyers Section */
 .lawyers-section {
-  background: linear-gradient(180deg, #f5f3f0 0%, var(--cream) 100%);
+  background: var(--cream);
 }
 
 .lawyers-grid {
@@ -263,7 +264,7 @@
   text-align: center;
   background: white;
   border-radius: 16px;
-  padding: 32px 16px;
+  /* padding: 32px 16px; */
   box-shadow: var(--shadow-soft);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -274,26 +275,21 @@
 }
 
 .lawyer-avatar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   position: relative;
-  display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
-.lawyer-avatar {
-  background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
-}
-
-.lawyer-avatar-ring {
-  position: absolute;
-  inset: -6px;
-  border: 2px solid var(--accent-gold);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.05); }
+.lawyer-photo {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+  overflow: hidden;
 }
 
 .lawyer-name {
@@ -396,7 +392,7 @@
 
 /* Contact Section */
 .contact-section {
-  background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+  background: var(--cream);
   position: relative;
 }
 
@@ -404,7 +400,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+  /* background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E"); */
 }
 
 .offices-grid {
@@ -447,7 +443,7 @@
 
 /* Footer */
 .footer {
-  background: var(--dark-green);
+  background: var(--cream);
   padding: 32px 48px;
 }
 
@@ -470,7 +466,7 @@
 .footer-name {
   font-family: 'Noto Serif TC', serif;
   font-size: 1.1rem;
-  color: var(--light-text);
+  /* color: var(--light-text); */
   font-weight: 500;
 }
 
@@ -483,14 +479,49 @@
 
 .footer-divider {
   height: 40px;
-  background: rgba(255, 255, 255, 0.2);
 }
 
 .copyright {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  /* color: rgba(255, 255, 255, 0.6); */
   margin: 0;
 }
+
+.desktop-menu {
+  display: flex;
+}
+
+.mobile-menu-btn {
+  display: none;
+  color: #fff;
+}
+
+/* 基礎：未進場 */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+/* 進場後 */
+.reveal.reveal--in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 減少動態偏好（無障礙） */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -523,17 +554,8 @@
     font-size: 2rem;
   }
 
-  .about-content {
-    grid-template-columns: 1fr;
-  }
-
   .about-visual {
     order: -1;
-  }
-
-  .banyan-tree {
-    width: 120px;
-    height: 168px;
   }
 
   .footer-content {
@@ -543,5 +565,18 @@
 
   .footer-divider {
     display: none;
+  }
+
+  .desktop-menu {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .logo-text {
+    display: none; /* 想保留也可以拿掉 */
   }
 }
