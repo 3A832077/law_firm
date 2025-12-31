@@ -1,0 +1,57 @@
+<div nz-row class="header-container">
+  <div class="actionDiv">
+    <input nz-input placeholder="搜尋" [(ngModel)]="searchTerm" />
+    <button nz-button nzType="primary" (click)="openModal(false)" >
+      <nz-icon nzType="plus" nzTheme="outline"></nz-icon>
+      <span>新增文章</span>
+    </button>
+  </div>
+</div>
+<div class="container">
+  <nz-table #filterTable
+    [nzData]="displayedList"
+    [nzTotal]="total"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex"
+    [nzLoading]="loading"
+    [nzShowTotal]="totalTemplate"
+    nzShowSizeChanger
+    nzFrontPagination="false"
+    ngSkipHydration>
+    <thead>
+      <tr>
+        <th nzAlign="center">發文日期</th>
+        <th nzAlign="center">標題</th>
+        <th nzAlign="center">內容</th>
+        <th nzAlign="center">引用</th>
+        <th nzAlign="center">附件</th>
+        <th nzAlign="center" nzShowSort >更新時間</th>
+        <th nzAlign="center" nzWidth="200px">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of filterTable.data; track data) {
+        <tr>
+          <td nzAlign="center">{{ data.date }}</td>
+          <td nzAlign="center">{{ data.title }}</td>
+          <td nzAlign="center">{{ data.content }}</td>
+          <td nzAlign="center">{{ data.reference }}</td>
+          <td nzAlign="center">{{ data.attachment }}</td>
+          <td nzAlign="center">{{ data.update | date: 'yyyy-MM-dd' }}</td>
+          <td nzAlign="center">
+            <button nz-button nzType="link" >編輯</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nzType="link" nz-button  >刪除</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>
+<ng-template #totalTemplate>
+  總共 {{ total }} 筆
+</ng-template>
+
+
+
+

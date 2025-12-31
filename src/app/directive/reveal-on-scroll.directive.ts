@@ -1,61 +1,48 @@
-import {
-  Directive,
-  ElementRef,
-  Input,
-  OnDestroy,
-  AfterViewInit,
-  Inject,
-  PLATFORM_ID,
-} from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Directive, ElementRef, AfterViewInit, OnDestroy, Renderer2, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appRevealOnScroll]'
+  selector: '[appRevealOnScroll]',
+  standalone: true
 })
-export class RevealOnScrollDirective implements AfterViewInit, OnDestroy{
+export class RevealOnScrollDirective implements AfterViewInit, OnDestroy {
 
-  /** 進入視窗多少比例觸發 */
-  @Input() revealThreshold = 0.15;
-  /** 觸發一次就停止觀察 */
-  @Input() revealOnce = true;
-  /** 延遲（ms），可做 stagger */
-  @Input() revealDelay = 0;
+  private observer: IntersectionObserver | undefined;
 
-  private io?: IntersectionObserver;
+  @Input('appRevealOnScrollDelay') delay: number = 0;
 
   constructor(
-    private el: ElementRef<HTMLElement>,
-    @Inject(PLATFORM_ID) private platformId: object
+    private el: ElementRef,
+    private renderer: Renderer2
   ) {}
 
   ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    const node = this.el.nativeElement;
-    node.classList.add('reveal');
-    if (this.revealDelay > 0) {
-      node.style.setProperty('--reveal-delay', `${this.revealDelay}ms`);
-    }
-
-    this.io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
+    this.renderer.addClass(this.el.nativeElement, 'reveal');
+    if (typeof window !== 'undefined') {
+      this.observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
-            node.classList.add('reveal--in');
-            if (this.revealOnce) this.io?.unobserve(node);
-          } else if (!this.revealOnce) {
-            node.classList.remove('reveal--in');
+            // 當元素進入可視範圍時，加上 visible class 來觸發動畫
+            setTimeout(() => {
+              this.renderer.addClass(this.el.nativeElement, 'visible');
+            }, this.delay);
           }
-        }
-      },
-      { threshold: this.revealThreshold }
-    );
+          else {
+            // 當元素離開可視範圍時，移除 visible class 來重置動畫
+            // 這樣下次滑入時才能再次觸發
+            this.renderer.removeClass(this.el.nativeElement, 'visible');
+          }
+        });
+      }, {
+        threshold: 0.1 // 元素進入可視範圍 10% 時觸發
+      });
 
-    this.io.observe(node);
+      this.observer.observe(this.el.nativeElement);
+    }
   }
 
   ngOnDestroy(): void {
-    this.io?.disconnect();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   }
-
 }

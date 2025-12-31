@@ -1,0 +1,43 @@
+<nz-layout >
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="200px" nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" nzTheme="light">
+    <div class="sidebar-logo">
+      <span class="header-trigger" (click)="isCollapsed = !isCollapsed"
+        [ngStyle]="{'padding': isCollapsed ? '20px 20px' : '20px 13px'}">
+        <span class="trigger" nz-icon nzType="menu"></span>
+      </span>
+    </div>
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item routerLink="/backend/lawyers" [nzSelected]="isActive('/backend/lawyers')"
+        [matTooltip]="isCollapsed ? '律師管理' : ''" matTooltipPosition="right">
+        <nz-icon nzType="team" />
+        <span>律師管理</span>
+      </li>
+      <li nz-menu-item routerLink="/backend/reserves"
+        [matTooltip]="isCollapsed ? '預約管理' : ''" matTooltipPosition="right">
+        <nz-icon nzType="solution" />
+        <span>預約管理</span>
+      </li>
+      <li nz-menu-item routerLink="/backend/articles"
+        [matTooltip]="isCollapsed ? '文章管理' : ''" matTooltipPosition="right">
+        <nz-icon nzType="read" />
+        <span>文章管理</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="header-content" [ngStyle]="{'justify-content': isCollapsed ? 'space-between' : 'flex-end'}">
+        <div class="loginDiv">
+          <span routerLink="/home">回到首頁</span>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content [ngStyle]="{'margin-left': isCollapsed ? '105px' : '225px'}">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer>©2025</nz-footer>
+  </nz-layout>
+</nz-layout>
