@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* 主視覺區塊 */
+.hero-carousel {
+  height: 70vh;
+  min-height: 500px;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+/* 關鍵：把 slick 的每一層都撐到 100% 高 */
+:host ::ng-deep .hero-carousel .slick-list,
+:host ::ng-deep .hero-carousel .slick-track,
+:host ::ng-deep .hero-carousel .slick-slide,
+:host ::ng-deep .hero-carousel .slick-slide > div {
+  height: 100%;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  white-space: pre-line;
+}
+
+.hero-author {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--accent-gold);
+}
+
+/* 通用區塊 */
+.section {
+  padding: 100px 48px;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin: 0 0 8px;
+  letter-spacing: 4px;
+}
+
+.section-subtitle {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.25rem;
+  color: var(--primary-green);
+  font-weight: 500;
+  letter-spacing: 8px;
+}
+
+/* Common Buttons */
+.more-btn {
+  font-family: 'Noto Serif TC', serif;
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+  border-radius: 8px;
+  padding: 8px 32px;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.more-btn:hover {
+  background: var(--primary-green);
+  color: white;
+  border-color: var(--primary-green);
+}
+
+/* 關於我們 */
+.about-section {
+  background: var(--cream);
+}
+
+.about-content {
+  display: grid;
+  gap: 64px;
+  align-items: center;
+}
+
+.about-text p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1rem;
+  line-height: 2;
+  color: var(--dark-text);
+  margin-bottom: 24px;
+  text-align: justify;
+}
+
+.highlight-text {
+  font-weight: 500;
+  color: var(--primary-green) !important;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(45, 90, 39, 0.05) 0%, rgba(74, 124, 67, 0.08) 100%);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: 0 8px 8px 0;
+}
+
+.about-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 律師 */
+.lawyers-section {
+  background: var(--cream);
+}
+
+.lawyers-grid {
+  margin-bottom: 48px;
+}
+
+.lawyer-card {
+  text-align: center;
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lawyer-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-medium);
+}
+
+.lawyer-avatar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.lawyer-photo {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+  overflow: hidden;
+}
+
+.lawyer-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin: 0 0 4px;
+}
+
+.lawyer-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.9rem;
+  color: var(--primary-green);
+  margin: 0 0 12px;
+}
+
+.more-lawyers {
+  text-align: center;
+  margin-top: 28px;
+}
+
+/* 文章 */
+.articles-section {
+  background: var(--cream);
+}
+
+.articles-timeline {
+  max-width: 900px;
+  margin: 0 auto 48px;
+}
+
+.article-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.article-card:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+/* 確保卡片內容高度一致，讓Footer置底 */
+::ng-deep .article-card > .ant-card-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.article-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin: 8px 0;
+  line-height: 1.6;
+  flex-grow: 1; /* 讓標題撐開空間，推擠下方元素 */
+}
+
+.article-author {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.more-articles {
+  text-align: center;
+  margin-top: 28px;
+}
+
+/*聯絡我們*/
+.contact-section {
+  background: var(--cream);
+  position: relative;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.offices-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.office-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 32px;
+  backdrop-filter: blur(10px);
+}
+
+.office-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.office-info p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  color: var(--dark-text);
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.office-info [nz-icon] {
+  color: var(--primary-green);
+  font-size: 1.1rem;
+}
+
+.reveal {
+  position: relative;
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 900px) {
+
+  /* Sections & Content */
+  .hero-quote {
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: 60px 24px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /* About */
+  .about-visual {
+    order: -1;
+  }
+
+}

@@ -13,12 +13,12 @@
         <nz-icon nzType="team" />
         <span>律師管理</span>
       </li>
-      <li nz-menu-item routerLink="/backend/reserves"
+      <li nz-menu-item routerLink="/backend/reserves" [nzSelected]="isActive('/backend/reserves')"
         [matTooltip]="isCollapsed ? '預約管理' : ''" matTooltipPosition="right">
         <nz-icon nzType="solution" />
         <span>預約管理</span>
       </li>
-      <li nz-menu-item routerLink="/backend/articles"
+      <li nz-menu-item routerLink="/backend/articles" [nzSelected]="isActive('/backend/articles')"
         [matTooltip]="isCollapsed ? '文章管理' : ''" matTooltipPosition="right">
         <nz-icon nzType="read" />
         <span>文章管理</span>

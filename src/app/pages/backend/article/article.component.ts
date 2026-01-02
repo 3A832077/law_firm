@@ -9,6 +9,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FormComponent } from './form/form.component';
+import { data } from '../../../data';
 
 @Component({
   selector: 'app-article',
@@ -24,7 +25,7 @@ import { FormComponent } from './form/form.component';
 })
 export class ArticleComponent implements OnInit {
 
-  displayedList: any[] = [];
+  displayedList: any[] = data.articles;
 
   total: number = 0;
 

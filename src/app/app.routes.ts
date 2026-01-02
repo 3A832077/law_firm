@@ -11,11 +11,11 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./pages/main/main.routes').then(m => m.mainRoutes)
+        loadChildren: () => import('./pages/main/home/home.routes').then(m => m.HomeRoutes)
       },
     ],
   },
-  // --- 後台(賣家)路由群組 ---
+  // --- 後台路由群組 ---
   { path: '', redirectTo: '/backend/lawyers', pathMatch: 'full' },
   {
     path: 'backend',

@@ -1,1 +1,45 @@
-<p>form works!</p>
+<form nz-form [formGroup]="form">
+  <div nz-row [nzGutter]="8" class="pb-10">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="10" nzFor="date">預約日期</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <nz-date-picker formControlName="date" style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="10" nzFor="time">預約時間</nz-form-label>
+        <nz-form-control [nzSpan]="14" >
+          <nz-time-picker formControlName="time" style="width: 100%" nzFormat="HH:mm"></nz-time-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row class="pb-10">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="name">預約人姓名</nz-form-label>
+        <nz-form-control [nzSpan]="19">
+          <input nz-input formControlName="name" placeholder="請輸入預約者" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row class="pb-10">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="remark">備註</nz-form-label>
+        <nz-form-control [nzSpan]="19">
+          <input nz-input formControlName="remark" placeholder="請輸入備註" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <nz-divider></nz-divider>
+  <div class="buttonDiv">
+    <button nz-button nzType="primary" type="submit">{{ data ? '編輯' : '新增' }}</button>
+    <button nz-button nzType="default" (click)="close()">取消</button>
+  </div>
+</form>

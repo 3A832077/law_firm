@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
@@ -12,31 +12,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
-import { RevealOnScrollDirective } from '../../directive/reveal-on-scroll.directive';
-
-interface Lawyer {
-  id: number;
-  name: string;
-  title: string;
-  avatar: string;
-  specialty: string[];
-}
-
-interface Article {
-  id: number;
-  date: string;
-  title: string;
-  author: string;
-}
-
-interface Office {
-  name: string;
-  address: string;
-  tel: string[];
-  fax: string;
-}
+import { data } from '../../data';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-main',
   imports: [
@@ -45,79 +24,100 @@ interface Office {
     NzAvatarModule, NzDividerModule, NzButtonModule,
     NzIconModule, NzAnchorModule, NzTypographyModule,
     NzTimelineModule, RouterLink, NzDrawerModule,
-    RevealOnScrollDirective
-  ],
+    MatTooltipModule, RouterOutlet
+],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })
 export class MainComponent implements OnInit {
 
-  heroSlides = [
-      {
-        quote: 'Keep your eyes on the prize,\nHold on.',
-        author: ''
-      },
-      {
-        quote: 'Darkness cannot drive out darkness:\nonly light can do that.\nHate cannot drive out hate:\nonly love can do that.',
-        author: 'Martin Luther King Jr.'
-      },
-      {
-        quote: 'Where ignorance is our master,\nthere is no possibility of real peace.',
-        author: 'Dalai Lama'
-      }
-    ];
+  heroSlides = data.heroSlides;
 
-    lawyers: Lawyer[] = [
-      { id: 3, name: '邱顯智', title: '律師', avatar: 'lawyer1.jpg', specialty: ['人權訴訟', '刑事辯護'] },
-      { id: 4, name: '劉繼蔚', title: '律師', avatar: 'lawyer2.jpg', specialty: ['憲法訴訟', '行政訴訟'] },
-      { id: 6, name: '李宣毅', title: '律師', avatar: 'lawyer3.jpg', specialty: ['刑事辯護', '民事訴訟'] },
-      { id: 7, name: '王逸青', title: '律師', avatar: 'lawyer4.jpg', specialty: ['勞動法', '民事訴訟'] },
-      { id: 8, name: '余柏儒', title: '律師', avatar: 'lawyer5.jpg', specialty: ['刑事辯護'] },
-      { id: 9, name: '吳俊龍', title: '律師', avatar: 'lawyer6.jpg', specialty: ['民事訴訟'] },
-      { id: 11, name: '莊家亨', title: '律師', avatar: 'lawyer7.jpg', specialty: ['商事法'] },
-      { id: 24, name: '劉育承', title: '律師', avatar: 'lawyer8.jpg', specialty: ['刑事辯護'] },
-      { id: 28, name: '黃守鵬', title: '律師', avatar: 'lawyer9.jpg', specialty: ['民事訴訟'] },
-    ];
+  lawyers: any[] = data.lawyers;
 
-    articles: Article[] = [
-      { id: 45, date: '2024.02.22', title: '大法官迴避不了的憲法義務', author: '李宣毅' },
-      { id: 44, date: '2019.12.06', title: '【活動介紹】2019平冤影展 – 如果 WHAT IF', author: '編輯' },
-      { id: 1, date: '2019.03.05', title: '一部748法 權利義務豈容各自表述？', author: '劉繼蔚 李宣毅 洪崇晏' },
-      { id: 5, date: '2017.12.09', title: '我曾天真以為這種荒謬的修法，在「點亮台灣」以後，再也不會發生了', author: '劉繼蔚' },
-      { id: 4, date: '2017.07.19', title: '向黃政雄律師致敬的最佳方式', author: '李宣毅' },
-      { id: 26, date: '2017.06.22', title: '自己的減刑條例自己立', author: '李宣毅' },
-    ];
+  articles: any[] = data.articles;
 
-    offices: Office[] = [
-      {
-        name: '新竹所',
-        address: '新竹市北區北大路179號6樓',
-        tel: ['03-522-2216'],
-        fax: '03-522-3126'
-      },
-      {
-        name: '台中所',
-        address: '台中市北屯區崇德路三段618號4樓',
-        tel: ['04-2421-2592', '04-2421-2921'],
-        fax: '04-2421-2703'
-      }
-    ];
+  offices: any[] = data.offices;
 
-    mobileMenuOpen = false;
+  visible = false;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+  isBrowser = false;
 
-    ngOnInit(): void {
+  // 紀錄目前亮起的是哪個區塊 ID
+  currentSection = '';
 
+  // 觀察者物件
+  private observer: IntersectionObserver | null = null;
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: object,
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
+  }
+
+  scrollTo(id: string, ev?: MouseEvent) {
+    ev?.preventDefault();
+
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const headerH = 80; // 你的 header 高度
+    const extraGap = 12;
+
+    // 找出實際的滾動容器：優先找 layout/content 內有 overflow 的那個
+    const scrollParent = this.findScrollContainer(target);
+
+    // target 相對 scrollParent 的 top
+    const targetTop = this.getOffsetTopWithin(target, scrollParent);
+    const top = Math.max(0, targetTop - headerH - extraGap);
+
+    scrollParent.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  /** 找到真正負責滾動的容器 */
+  private findScrollContainer(el: HTMLElement): HTMLElement {
+    // 如果 body/window 在滾，document.scrollingElement 會是 html 或 body
+    const docScroller = (document.scrollingElement as HTMLElement) || document.documentElement;
+
+    // 往上找第一個可滾動的 parent
+    let cur: HTMLElement | null = el.parentElement;
+    while (cur) {
+      const style = getComputedStyle(cur);
+      const overflowY = style.overflowY;
+      const canScroll = (overflowY === 'auto' || overflowY === 'scroll') && cur.scrollHeight > cur.clientHeight;
+      if (canScroll) return cur;
+      cur = cur.parentElement;
     }
 
-    goTo(hash: string): void {
-      this.mobileMenuOpen = false;
+    // 沒找到就回退到 document scroller（window）
+    return docScroller;
+  }
 
-      if (!isPlatformBrowser(this.platformId)) return;
+  /** 計算 el 在 container 內的 offsetTop */
+  private getOffsetTopWithin(el: HTMLElement, container: HTMLElement): number {
+    const elRect = el.getBoundingClientRect();
+    const cRect = container.getBoundingClientRect();
 
-      const id = hash.replace('#', '');
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // container 是 document scroller 的話，用 window.scrollY
+    const isDoc = container === document.documentElement || container === document.body || container === document.scrollingElement;
+    if (isDoc) return elRect.top + window.scrollY;
+
+    // 否則用 container.scrollTop
+    return elRect.top - cRect.top + container.scrollTop;
+  }
+
+
 
 }
