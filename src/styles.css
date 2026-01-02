@@ -75,7 +75,7 @@ a:hover {
   justify-content: flex-end;
 }
 
-.hero-slide {
+/* .hero-slide {
   height: 70vh;
   min-height: 500px;
   background: url('/img/unnamed.jpg') center/cover no-repeat;
@@ -83,4 +83,4 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
