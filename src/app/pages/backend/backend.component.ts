@@ -1,12 +1,11 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
@@ -19,7 +18,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     NzLayoutModule,
     NzMenuModule,
     NzButtonModule,
-    NzAvatarModule,
     NzModalModule,
     MatTooltipModule
   ],
@@ -30,17 +28,10 @@ export class BackendComponent implements OnInit {
 
   isCollapsed = false;
 
-  userName: string = '';
-
-  picUrl: string = '';
-
-  userEmail: string = '';
-
   isDropdownOpen = false;
 
   constructor(
     private router: Router,
-    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
