@@ -34,7 +34,7 @@
       <nz-drawer [nzClosable]="true" [nzVisible]="visible" nzPlacement="right" nzTitle="導覽列" (nzOnClose)="close()" [nzWidth]="200">
         <ng-container *nzDrawerContent>
           <ul nz-menu nzMode="inline" class="mobile-nav-menu">
-            <li nz-menu-item [nzSelected]="currentSection === 'about'">
+            <li nz-menu-item (click)="scrollTo('about', $event)">
               <span class="nav-zh">關於雪谷南榕</span>
               <span class="nav-en">About Us</span>
             </li>
@@ -46,7 +46,7 @@
               <span class="nav-zh">言論選輯</span>
               <span class="nav-en">Articles</span>
             </li>
-            <li nz-menu-item >
+            <li nz-menu-item (click)="scrollTo('contact', $event)">
               <span class="nav-zh">聯絡我們</span>
               <span class="nav-en">Contact Us</span>
             </li>

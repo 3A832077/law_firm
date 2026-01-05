@@ -27,9 +27,13 @@
   </nz-sider>
   <nz-layout>
     <nz-header>
-      <div class="header-content" [ngStyle]="{'justify-content': isCollapsed ? 'space-between' : 'flex-end'}">
+      <div class="header-content">
         <div class="loginDiv">
-          <span routerLink="/home">回到首頁</span>
+          <button nz-button nzType="default">
+            <span routerLink="/home" nz-icon nzType="home" nzTheme="fill"
+              matTooltip="回到首頁" matTooltipPosition="left">
+            </span>
+          </button>
         </div>
       </div>
     </nz-header>

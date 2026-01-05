@@ -86,6 +86,7 @@ nz-content {
   align-items: center;
   height: 100%;
   padding: 0 16px;
+  justify-content: flex-end;
 }
 
 nz-footer {

@@ -144,30 +144,8 @@
     height: 70px;
   }
 
-  .logo-text {
-    display: none;
-  }
-
   .nav-menu ::ng-deep .ant-menu-item {
     padding: 0 12px;
-  }
-
-  /* Sections & Content */
-  .hero-quote {
-    font-size: 1.5rem;
-  }
-
-  .section {
-    padding: 60px 24px;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  /* About */
-  .about-visual {
-    order: -1;
   }
 
   /* Footer */
@@ -207,11 +185,11 @@
 /* 微調手機版文字大小 */
 .mobile-nav-menu .nav-zh {
   font-size: 1.1rem;
-  color: var(--accent-gold); /* 抽屜背景通常是白的，所以字要深色 */
+  color: var(--dark-green);
   margin-bottom: 4px;
 }
 
 .mobile-nav-menu .nav-en {
   font-size: 0.8rem;
-  color: #999;
+  color: var(--accent-gold);
 }

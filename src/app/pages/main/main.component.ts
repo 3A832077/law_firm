@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser, ViewportScroller } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
@@ -43,12 +43,6 @@ export class MainComponent implements OnInit {
 
   isBrowser = false;
 
-  // 紀錄目前亮起的是哪個區塊 ID
-  currentSection = '';
-
-  // 觀察者物件
-  private observer: IntersectionObserver | null = null;
-
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
   ) {
@@ -59,14 +53,25 @@ export class MainComponent implements OnInit {
 
   }
 
+  /**
+   * 開啟抽屜選單
+   */
   open(): void {
     this.visible = true;
   }
 
+  /**
+   * 關閉抽屜選單
+   */
   close(): void {
     this.visible = false;
   }
 
+  /**
+   * 滾到指定區塊
+   * @param id
+   * @param ev
+   */
   scrollTo(id: string, ev?: MouseEvent) {
     ev?.preventDefault();
 
@@ -84,9 +89,13 @@ export class MainComponent implements OnInit {
     const top = Math.max(0, targetTop - headerH - extraGap);
 
     scrollParent.scrollTo({ top, behavior: 'smooth' });
+    this.visible = false;
   }
 
-  /** 找到真正負責滾動的容器 */
+  /**
+   * 找到真正負責滾動的容器
+   * @param el
+   */
   private findScrollContainer(el: HTMLElement): HTMLElement {
     // 如果 body/window 在滾，document.scrollingElement 會是 html 或 body
     const docScroller = (document.scrollingElement as HTMLElement) || document.documentElement;
@@ -105,7 +114,12 @@ export class MainComponent implements OnInit {
     return docScroller;
   }
 
-  /** 計算 el 在 container 內的 offsetTop */
+  /**
+   * 計算 el 在 container 內的 offsetTop
+   * @param el
+   * @param container
+   * @returns
+   */
   private getOffsetTopWithin(el: HTMLElement, container: HTMLElement): number {
     const elRect = el.getBoundingClientRect();
     const cRect = container.getBoundingClientRect();
@@ -117,7 +131,5 @@ export class MainComponent implements OnInit {
     // 否則用 container.scrollTop
     return elRect.top - cRect.top + container.scrollTop;
   }
-
-
 
 }
