@@ -1,5 +1,6 @@
 <!-- 輪播 -->
-<nz-carousel nzAutoPlay [nzDotPosition]="'bottom'" class="hero-carousel" nzArrows nzEnableSwipe="false">
+<nz-carousel nzAutoPlay [nzDotPosition]="'bottom'" class="hero-carousel" nzArrows nzEnableSwipe="false"
+  [nzEffect]="'scrollx'">
   @for (item of heroSlides; track $index) {
     <div nz-carousel-content class="hero-slide">
       <img src="/img/unnamed.jpg" class="hero-bg" />

@@ -10,21 +10,6 @@
   margin-bottom: 16px;
 }
 
-/* 關鍵：把 slick 的每一層都撐到 100% 高 */
-:host ::ng-deep .hero-carousel .slick-list,
-:host ::ng-deep .hero-carousel .slick-track,
-:host ::ng-deep .hero-carousel .slick-slide,
-:host ::ng-deep .hero-carousel .slick-slide > div {
-  height: 100%;
-}
-
-.hero-slide {
-  height: 70vh;
-  min-height: 500px;
-  position: relative;
-  overflow: hidden;
-}
-
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -40,10 +25,9 @@
   z-index: 1;
 }
 
-:host ::ng-deep .hero-slide {
+.hero-slide {
   height: 70vh;
   min-height: 500px;
-  /* background: url('/img/unnamed.jpg') center/cover no-repeat; */
   position: relative;
   display: flex;
   align-items: center;
