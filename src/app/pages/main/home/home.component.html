@@ -2,13 +2,8 @@
 <nz-carousel nzAutoPlay [nzDotPosition]="'bottom'" class="hero-carousel" nzArrows nzEnableSwipe="false">
   @for (item of heroSlides; track $index) {
     <div nz-carousel-content class="hero-slide">
+      <img src="/img/unnamed.jpg" class="hero-bg" />
       <div class="hero-overlay"></div>
-      <!-- <div class="hero-content">
-        <h1 class="hero-quote">{{ item.quote }}</h1>
-        @if (item.author) {
-          <p class="hero-author">— {{ item.author }}</p>
-        }
-      </div> -->
     </div>
   }
 </nz-carousel>

@@ -18,8 +18,26 @@
   height: 100%;
 }
 
-:host ::ng-deep .hero-carousel {
-  background: url('/img/unnamed.jpg') center/cover no-repeat;
+.hero-slide {
+  height: 70vh;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 :host ::ng-deep .hero-slide {
@@ -33,36 +51,15 @@
   width: 100%;
 }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-}
-
 .hero-content {
+  position: relative;
+  z-index: 2;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.hero-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--cream);
-  line-height: 1.6;
-  margin-bottom: 24px;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-  white-space: pre-line;
-}
-
-.hero-author {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem;
-  font-style: italic;
-  color: var(--accent-gold);
 }
 
 /* 通用區塊 */
