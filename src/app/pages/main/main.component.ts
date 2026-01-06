@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -25,9 +25,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
 
-  heroSlides = data.heroSlides;
+  heroSlides: any[] = data.heroSlides;
 
   lawyers: any[] = data.lawyers;
 
@@ -35,9 +35,19 @@ export class MainComponent implements OnInit {
 
   offices: any[] = data.offices;
 
-  visible = false;
+  visible: boolean = false;
 
-  isBrowser = false;
+  isBrowser: boolean = false;
+
+  isSelect: boolean = false;
+
+  sections: string[] = ['about', 'lawyers', 'articles', 'contact'];
+
+  activeSection: string = 'about';
+
+  isScrolling: boolean = false; // 鎖定狀態
+
+  scrollHandler = this.scrollHandlerFn.bind(this);
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -46,7 +56,55 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.isBrowser) {
+      document.addEventListener('scroll', this.scrollHandler, true);
+    }
+  }
 
+  ngOnDestroy(): void {
+    if (this.isBrowser) {
+      document.removeEventListener('scroll', this.scrollHandler, true);
+    }
+  }
+
+  /**
+   * 滾動後到某區塊則選中導覽列
+   * @returns
+   */
+  scrollHandlerFn(): void {
+    // 如果正在滾動中，不更新 activeSection
+    if (this.isScrolling) return;
+
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const windowHeight = window.innerHeight;
+    const scrollCenter = scrollTop + windowHeight / 3;
+
+    for (let i = this.sections.length - 1; i >= 0; i--) {
+      const element = document.getElementById(this.sections[i]);
+      if (element && element.offsetTop <= scrollCenter) {
+        this.activeSection = this.sections[i];
+        break;
+      }
+    }
+  }
+
+  /**
+   * 點擊導覽列跳到指定區塊
+   * @param sectionId
+   */
+  scrollTo(sectionId: string): void {
+    // 點擊時鎖定，防止滾動過程中亂跳
+    this.isScrolling = true;
+    this.activeSection = sectionId;
+
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+
+    // 滾動完成後解除鎖定
+    setTimeout(() => {
+      this.isScrolling = false;
+    }, 500);
+
+    this.close();
   }
 
   /**
@@ -61,71 +119,6 @@ export class MainComponent implements OnInit {
    */
   close(): void {
     this.visible = false;
-  }
-
-  /**
-   * 滾到指定區塊
-   * @param id
-   * @param ev
-   */
-  scrollTo(id: string, ev?: MouseEvent) {
-    ev?.preventDefault();
-
-    const target = document.getElementById(id);
-    if (!target) return;
-
-    const headerH = 80; // 你的 header 高度
-    const extraGap = 12;
-
-    // 找出實際的滾動容器：優先找 layout/content 內有 overflow 的那個
-    const scrollParent = this.findScrollContainer(target);
-
-    // target 相對 scrollParent 的 top
-    const targetTop = this.getOffsetTopWithin(target, scrollParent);
-    const top = Math.max(0, targetTop - headerH - extraGap);
-
-    scrollParent.scrollTo({ top, behavior: 'smooth' });
-    this.visible = false;
-  }
-
-  /**
-   * 找到真正負責滾動的容器
-   * @param el
-   */
-  private findScrollContainer(el: HTMLElement): HTMLElement {
-    // 如果 body/window 在滾，document.scrollingElement 會是 html 或 body
-    const docScroller = (document.scrollingElement as HTMLElement) || document.documentElement;
-
-    // 往上找第一個可滾動的 parent
-    let cur: HTMLElement | null = el.parentElement;
-    while (cur) {
-      const style = getComputedStyle(cur);
-      const overflowY = style.overflowY;
-      const canScroll = (overflowY === 'auto' || overflowY === 'scroll') && cur.scrollHeight > cur.clientHeight;
-      if (canScroll) return cur;
-      cur = cur.parentElement;
-    }
-
-    // 沒找到就回退到 document scroller（window）
-    return docScroller;
-  }
-
-  /**
-   * 計算 el 在 container 內的 offsetTop
-   * @param el
-   * @param container
-   * @returns
-   */
-  private getOffsetTopWithin(el: HTMLElement, container: HTMLElement): number {
-    const elRect = el.getBoundingClientRect();
-    const cRect = container.getBoundingClientRect();
-
-    // container 是 document scroller 的話，用 window.scrollY
-    const isDoc = container === document.documentElement || container === document.body || container === document.scrollingElement;
-    if (isDoc) return elRect.top + window.scrollY;
-
-    // 否則用 container.scrollTop
-    return elRect.top - cRect.top + container.scrollTop;
   }
 
 }

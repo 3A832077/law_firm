@@ -1,23 +1,23 @@
-<nz-layout class="layout">
+<nz-layout class="layout" >
   <nz-header class="header">
     <div class="header-content">
       <div class="logo">
         <img src="/img/logo_b.png" alt="雪谷南榕法律事務所" class="logo-img" routerLink="/home" />
       </div>
-      <ul nz-menu nzMode="horizontal" class="nav-menu">
-        <li nz-menu-item (click)="scrollTo('about', $event)">
+      <ul nz-menu nzMode="horizontal" class="nav-menu" >
+        <li nz-menu-item (click)="scrollTo('about')" [nzSelected]="activeSection === 'about'">
           <span class="nav-zh">關於雪谷南榕</span>
           <span class="nav-en">About Us</span>
         </li>
-        <li nz-menu-item>
+        <li nz-menu-item (click)="scrollTo('lawyers')" [nzSelected]="activeSection === 'lawyers'">
           <span class="nav-zh">律師簡介</span>
           <span class="nav-en">Our Lawyers</span>
         </li>
-        <li nz-menu-item >
+        <li nz-menu-item (click)="scrollTo('articles')" [nzSelected]="activeSection === 'articles'">
           <span class="nav-zh">言論選輯</span>
           <span class="nav-en">Articles</span>
         </li>
-        <li nz-menu-item (click)="scrollTo('contact', $event)">
+        <li nz-menu-item (click)="scrollTo('contact')" [nzSelected]="activeSection === 'contact'">
           <span class="nav-zh">聯絡我們</span>
           <span class="nav-en">Contact Us</span>
         </li>
@@ -34,19 +34,19 @@
       <nz-drawer [nzClosable]="true" [nzVisible]="visible" nzPlacement="right" nzTitle="導覽列" (nzOnClose)="close()" [nzWidth]="200">
         <ng-container *nzDrawerContent>
           <ul nz-menu nzMode="inline" class="mobile-nav-menu">
-            <li nz-menu-item (click)="scrollTo('about', $event)">
+            <li nz-menu-item (click)="scrollTo('about')">
               <span class="nav-zh">關於雪谷南榕</span>
               <span class="nav-en">About Us</span>
             </li>
-            <li nz-menu-item >
+            <li nz-menu-item (click)="scrollTo('lawyers')">
               <span class="nav-zh">律師簡介</span>
               <span class="nav-en">Our Lawyers</span>
             </li>
-            <li nz-menu-item>
+            <li nz-menu-item (click)="scrollTo('articles')">
               <span class="nav-zh">言論選輯</span>
               <span class="nav-en">Articles</span>
             </li>
-            <li nz-menu-item (click)="scrollTo('contact', $event)">
+            <li nz-menu-item (click)="scrollTo('contact')">
               <span class="nav-zh">聯絡我們</span>
               <span class="nav-en">Contact Us</span>
             </li>

@@ -89,6 +89,13 @@
   letter-spacing: 1px;
 }
 
+::ng-deep .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
+::ng-deep .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after {
+  border-bottom-color: transparent !important;
+  background: linear-gradient(90deg, #C9A96E, #8B7355, #C9A96E);
+  height: 2.5px;
+}
+
 /*Footer*/
 .footer {
   background: var(--cream);
