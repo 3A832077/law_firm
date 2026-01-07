@@ -13,6 +13,14 @@ export const routes: Routes = [
         path: 'home',
         loadChildren: () => import('./pages/main/home/home.routes').then(m => m.HomeRoutes)
       },
+      {
+        path: 'lawyers',
+        loadChildren: () => import('./pages/main/lawyers/lawyers.routes').then(m => m.lawyerRoutes)
+      },
+      {
+        path: 'articles',
+        loadChildren: () => import('./pages/main/article/article.routes').then(m => m.articlesRoutes)
+      },
     ],
   },
   // --- 後台路由群組 ---

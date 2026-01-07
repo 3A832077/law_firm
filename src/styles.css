@@ -39,18 +39,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 輪播指示器樣式 */
-.ant-carousel .slick-dots li button {
-  background: rgba(255, 255, 255, 0.4);
-  height: 4px;
-  border-radius: 2px;
-}
-
-.ant-carousel .slick-dots li.slick-active button {
-  background: var(--accent-gold);
-  width: 32px;
-}
-
 /* 選取文字顏色 */
 ::selection {
   background-color: var(--accent-gold);

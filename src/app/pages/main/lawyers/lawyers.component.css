@@ -1,0 +1,553 @@
+ @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:host {
+  --primary-green: #2d5a27;
+  --dark-green: #1a3518;
+  --light-green: #4a7c43;
+  --accent-gold: #c9a961;
+  --cream: #faf8f5;
+  --dark-text: #1a1a1a;
+  --light-text: #f5f5f5;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.18);
+  display: block;
+  background: var(--cream);
+}
+
+/* ===== 篩選區 ===== */
+.filter-section {
+  padding: 30px 48px;
+}
+
+.filter-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.filter-left {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+}
+
+:host ::ng-deep .search-input .ant-input {
+  padding: 10px 16px;
+  font-family: 'Noto Serif TC', serif;
+}
+
+.filter-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.filter-select {
+  min-width: 160px;
+}
+
+:host ::ng-deep .filter-select .ant-select-selector {
+  border-radius: 8px !important;
+  font-family: 'Noto Serif TC', serif;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.view-toggle button {
+  border-radius: 6px;
+}
+
+:host ::ng-deep .view-toggle .ant-btn-primary {
+  background: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.filter-stats {
+  max-width: 1400px;
+  margin: 16px auto 0;
+}
+
+.stats-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.stats-text strong {
+  color: var(--primary-green);
+  font-weight: 600;
+}
+
+/* ===== 律師網格 ===== */
+.lawyers-grid-section {
+  padding: 20px 48px;
+  background: linear-gradient(180deg, #f8f7f5 0%, var(--cream) 100%);
+  min-height: 60vh;
+}
+
+.grid-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 卡片動畫 */
+.animate-card {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: cardFadeIn 0.6s ease forwards;
+}
+
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 律師卡片 ===== */
+.lawyer-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.lawyer-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-strong);
+}
+
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 120%; /* 3:4 比例 */
+  overflow: hidden;
+}
+
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.lawyer-card:hover .card-image {
+  transform: scale(1.08);
+}
+
+.card-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 50%,
+    rgba(26, 53, 24, 0.9) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.lawyer-card:hover .card-image-overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+
+.lawyer-card:hover .overlay-content {
+  transform: translateY(0);
+}
+
+.view-profile {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.9rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.card-specialty-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent-gold);
+  color: var(--dark-green);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin: 0 0 4px;
+  text-align: center;
+}
+
+.card-english-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--primary-green);
+  margin: 0 0 4px;
+  font-style: italic;
+}
+
+.card-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0 0 12px;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: auto;
+}
+
+:host ::ng-deep .card-tags .ant-tag {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  margin: 0;
+}
+
+:host ::ng-deep .card-tags .ant-tag-green {
+  background: rgba(45, 90, 39, 0.1);
+  border-color: rgba(45, 90, 39, 0.2);
+  color: var(--primary-green);
+}
+
+.card-footer {
+  padding: 12px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.contact-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(45, 90, 39, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-green);
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  background: var(--primary-green);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* ===== 列表模式 ===== */
+.lawyers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lawyer-list-item {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.lawyer-list-item:hover {
+  transform: translateX(8px);
+  box-shadow: var(--shadow-medium);
+}
+
+.list-item-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.list-item-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.list-item-info {
+  flex: 1;
+}
+
+.list-item-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.list-item-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin: 0;
+}
+
+.list-item-english {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--primary-green);
+  font-style: italic;
+}
+
+.list-item-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.list-item-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.list-item-edu {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.list-item-actions {
+  flex-shrink: 0;
+}
+
+:host ::ng-deep .list-item-actions .ant-btn {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+:host ::ng-deep .list-item-actions .ant-btn:hover {
+  background: var(--primary-green);
+  color: white;
+}
+
+/* ===== 空狀態 ===== */
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: #ccc;
+  margin-bottom: 24px;
+}
+
+.empty-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+/* ===== 分頁 ===== */
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+:host ::ng-deep .ant-pagination-item-active {
+  border-color: var(--primary-green);
+}
+
+:host ::ng-deep .ant-pagination-item-active a {
+  color: var(--primary-green);
+}
+
+/* ===== CTA 區 ===== */
+.cta-section {
+  background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+  padding: 64px 48px;
+}
+
+.cta-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.cta-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 8px;
+}
+
+.cta-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+:host ::ng-deep .cta-actions .ant-btn-primary {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: var(--dark-green);
+  height: auto;
+  padding: 12px 32px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+:host ::ng-deep .cta-actions .ant-btn-primary:hover {
+  background: #d4b46a;
+  border-color: #d4b46a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(201, 169, 97, 0.4);
+}
+
+/* ===== RWD ===== */
+@media (max-width: 992px) {
+  .title-en {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+  }
+
+  .title-zh {
+    font-size: 1.25rem;
+    letter-spacing: 8px;
+  }
+
+  .filter-section {
+    padding: 16px 24px;
+  }
+
+  .lawyers-grid-section {
+    padding: 48px 24px;
+  }
+
+  .cta-section {
+    padding: 48px 24px;
+  }
+
+  .cta-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    height: 40vh;
+    min-height: 300px;
+  }
+
+  .title-en {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+  }
+
+  .title-zh {
+    font-size: 1rem;
+    letter-spacing: 4px;
+  }
+
+  .filter-container {
+    flex-direction: column;
+  }
+
+  .filter-left {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .filter-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .lawyer-list-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .list-item-header {
+    justify-content: center;
+  }
+
+  .list-item-tags {
+    justify-content: center;
+  }
+
+  .scroll-hint {
+    display: none;
+  }
+}

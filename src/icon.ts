@@ -22,7 +22,10 @@ import {
   PrinterOutline,
   PhoneOutline,
   TeamOutline,
-  HomeFill
+  HomeFill,
+  AppstoreOutline,
+  FolderOutline,
+  FireOutline
 } from '@ant-design/icons-angular/icons';
 
 export const icons = [
@@ -30,8 +33,9 @@ export const icons = [
   ShoppingOutline, MenuOutline, BarChartOutline,
   SolutionOutline, AuditOutline, PlusOutline,
   InfoCircleOutline, GoogleOutline, UnorderedListOutline,
-  RedoOutline, MinusOutline, ArrowLeftOutline, ArrowRightOutline,
-  ReadOutline, UserOutline, BankOutline, EnvironmentOutline,
+  RedoOutline, MinusOutline, ArrowLeftOutline,
+  ReadOutline, UserOutline, BankOutline,
   PrinterOutline, PhoneOutline, TeamOutline,
-  HomeFill
+  HomeFill, AppstoreOutline, FolderOutline,
+  ArrowRightOutline, EnvironmentOutline, FireOutline
 ];

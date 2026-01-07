@@ -1,1 +1,132 @@
-<p>lawyers works!</p>
+<div class="lawyers-page">
+  <!-- 篩選區 -->
+  <section class="filter-section">
+    <div class="filter-container">
+      <div class="filter-left">
+        <nz-input-search >
+          <input nz-input placeholder="搜尋律師" />
+        </nz-input-search>
+      </div>
+      <div class="filter-right">
+        <nz-select [(ngModel)]="selectedSpecialty" nzPlaceHolder="專業領域" nzAllowClear class="filter-select">
+          @for (spec of specialties; track spec) {
+            <nz-option [nzValue]="spec" [nzLabel]="spec"></nz-option>
+          }
+        </nz-select>
+        <div class="view-toggle">
+          <button nz-button [nzType]="viewMode === 'grid' ? 'primary' : 'default'" (click)="viewMode = 'grid'" matTooltip="網格">
+            <span nz-icon nzType="appstore"></span>
+          </button>
+          <button nz-button [nzType]="viewMode === 'list' ? 'primary' : 'default'" (click)="viewMode = 'list'" matTooltip="列表">
+            <span nz-icon nzType="bars"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="filter-stats">
+      <span class="stats-text">共 <strong>{{ filteredLawyers.length }}</strong> 位律師</span>
+    </div>
+  </section>
+
+  <!-- 律師列表 - 網格模式 4x6 -->
+  <section class="lawyers-grid-section" [class.list-mode]="viewMode === 'list'">
+    <div class="grid-container">
+      @if (viewMode === 'grid') {
+        <div nz-row [nzGutter]="[32, 32]" class="lawyers-grid">
+          @for (lawyer of paginatedLawyers; track lawyer.id; let i = $index) {
+            <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+              <div class="lawyer-card animate-card" [style.animation-delay]="(i * 0.08) + 's'">
+                <div class="card-image-wrapper">
+                  <img [src]="'/img/' + lawyer.avatar" [alt]="lawyer.name" class="card-image" loading="lazy" />
+                  <div class="card-image-overlay">
+                    <div class="overlay-content">
+                      <span class="view-profile">
+                        <span nz-icon nzType="user" nzTheme="outline"></span>查看簡介
+                      </span>
+                    </div>
+                  </div>
+                  <!-- <div class="card-specialty-badge" >
+                    {{ lawyer.specialty[0] }}
+                  </div> -->
+                </div>
+                <div class="card-content">
+                  <h3 class="card-name">{{ lawyer.name }}</h3>
+                  <!-- <div class="card-tags">
+                    @for (spec of lawyer.specialty.slice(0, 2); track spec) {
+                      <nz-tag [nzColor]="'green'">{{ spec }}</nz-tag>
+                    }
+                    @if (lawyer.specialty.length > 2) {
+                      <nz-tag>+{{ lawyer.specialty.length - 2 }}</nz-tag>
+                    }
+                  </div> -->
+                </div>
+                <!-- <div class="card-footer">
+                  <a class="contact-link" (click)="$event.stopPropagation()">
+                    <span nz-icon nzType="mail" nzTheme="outline"></span>
+                  </a>
+                  <a class="contact-link" (click)="$event.stopPropagation()" >
+                    <span nz-icon nzType="phone" nzTheme="outline"></span>
+                  </a>
+                </div> -->
+              </div>
+            </div>
+          }
+        </div>
+      }
+      @else {
+        <!-- 列表模式 -->
+        <div class="lawyers-list">
+          @for (lawyer of paginatedLawyers; track lawyer.id; let i = $index) {
+            <div class="lawyer-list-item animate-card" [style.animation-delay]="(i * 0.05) + 's'">
+              <div class="list-item-avatar">
+                <img [src]="'/img/' + lawyer.avatar" [alt]="lawyer.name"loading="lazy"/>
+              </div>
+              <div class="list-item-info">
+                <div class="list-item-header">
+                  <h3 class="list-item-name">{{ lawyer.name }}</h3>
+                  <span class="list-item-title">{{ lawyer.title }}</span>
+                </div>
+                <!-- <div class="list-item-tags">
+                  @for (spec of lawyer.specialty; track spec) {
+                    <nz-tag [nzColor]="'green'">{{ spec }}</nz-tag>
+                  }
+                </div> -->
+                <p class="list-item-edu">{{ lawyer.education }}</p>
+              </div>
+              <div class="list-item-actions">
+                <button nz-button nzType="primary" nzGhost>
+                  <span nz-icon nzType="right"></span>
+                  查看簡介
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- 空狀態 -->
+      <!-- @if (filteredLawyers.length === 0) {
+        <div class="empty-state">
+          <span nz-icon nzType="search" nzTheme="outline" class="empty-icon"></span>
+          <p class="empty-text">找不到符合條件的律師</p>
+          <button nz-button nzType="primary" >
+            清除篩選條件
+          </button>
+        </div>
+      } -->
+    </div>
+
+    <!-- 分頁 -->
+    <!-- @if (filteredLawyers.length > pageSize) {
+      <div class="pagination-wrapper">
+        <nz-pagination
+          [nzPageIndex]="currentPage"
+          [nzPageSize]="pageSize"
+          [nzTotal]="filteredLawyers.length"
+          [nzPageSizeOptions]="[24,36,48,72]"
+          [nzShowSizeChanger]="true">
+        </nz-pagination>
+      </div>
+    } -->
+  </section>
+</div>

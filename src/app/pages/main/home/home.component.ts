@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
@@ -13,6 +13,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { RevealOnScrollDirective } from '../../../directive/reveal-on-scroll.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { data } from '../../../data';
+import { ActivatedRoute, RouterLink } from "@angular/router";
 @Component({
   selector: 'app-home',
   imports: [
@@ -20,8 +21,9 @@ import { data } from '../../../data';
     NzCarouselModule, NzCardModule, NzGridModule,
     NzDividerModule, NzButtonModule, MatTooltipModule,
     NzIconModule, NzTypographyModule, NzDrawerModule,
-    RevealOnScrollDirective
-  ],
+    RevealOnScrollDirective,
+    RouterLink
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -35,10 +37,26 @@ export class HomeComponent implements OnInit{
 
   offices: any[] = data.offices;
 
-  constructor(){}
+  isBrowser = false;
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: object,
+    private route: ActivatedRoute
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
-
+    if (this.isBrowser) {
+      // 監聽 fragment 變化
+      this.route.fragment.subscribe(fragment => {
+        if (fragment) {
+          setTimeout(() => {
+            document.getElementById(fragment)?.scrollIntoView({ behavior: 'smooth' });
+          }, 300);
+        }
+      });
+    }
   }
 
 }

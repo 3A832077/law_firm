@@ -1,1 +1,132 @@
-<p>article works!</p>
+<div class="articles-page">
+  <!-- 篩選區 -->
+  <section class="filter-section">
+    <div class="filter-container">
+      <div class="filter-row">
+        <div class="filter-left">
+          <nz-input-search class="search-input">
+            <input nz-input placeholder="搜尋文章標題、內容" [(ngModel)]="searchText" (ngModelChange)="onSearch()" />
+          </nz-input-search>
+        </div>
+        <div class="filter-right">
+          <nz-select
+            [(ngModel)]="selectedCategory"
+            nzPlaceHolder="所有分類"
+            nzAllowClear
+            class="filter-select"
+            (ngModelChange)="onFilter()">
+            @for (cat of categories; track cat) {
+              <nz-option [nzValue]="cat" [nzLabel]="cat"></nz-option>
+            }
+          </nz-select>
+          <nz-select
+            [(ngModel)]="selectedYear"
+            nzPlaceHolder="所有年份"
+            nzAllowClear
+            class="filter-select"
+            (ngModelChange)="onFilter()">
+            @for (year of years; track year) {
+              <nz-option [nzValue]="year" [nzLabel]="year + ' 年'"></nz-option>
+            }
+          </nz-select>
+          <nz-select
+            [(ngModel)]="sortBy"
+            class="filter-select sort-select"
+            (ngModelChange)="onSort()">
+            <nz-option nzValue="newest" nzLabel="最新發布"></nz-option>
+            <nz-option nzValue="oldest" nzLabel="最舊發布"></nz-option>
+            <nz-option nzValue="title" nzLabel="標題排序"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文章列表 -->
+  <section class="articles-section">
+    <div class="articles-container">
+      <!-- 左側：文章列表 -->
+      <div class="articles-main">
+        <div class="articles-header">
+          <h2 class="section-title">
+            @if (selectedCategory) {
+              {{ selectedCategory }}
+            } @else if (selectedTag) {
+              #{{ selectedTag }}
+            } @else {
+              全部文章
+            }
+          </h2>
+          <span class="articles-count">{{ filteredArticles.length }} 篇文章</span>
+        </div>
+
+        @if (filteredArticles.length > 0) {
+          <div class="articles-list">
+            @for (article of paginatedArticles; track article.id; let i = $index) {
+              <article
+                class="article-card animate-card"
+                [style.animation-delay]="(i * 0.1) + 's'"
+                [routerLink]="['/articles', article.id]">
+                <div class="article-number">{{ getArticleNumber(i) }}</div>
+                <div class="article-body">
+                  <div class="article-header">
+                    <span class="article-date">{{ article.date }}</span>
+                  </div>
+                  <h3 class="article-title">{{ article.title }}</h3>
+                  <p class="article-excerpt">{{ article.excerpt }}</p>
+                  <div class="article-footer">
+                    <div class="article-author">
+                      <div class="author-avatar-small">
+                        <span nz-icon nzType="user"></span>
+                      </div>
+                      <span class="author-name">{{ article.author }}</span>
+                    </div>
+                    <div class="article-meta">
+                      <span class="read-time">
+                        <span nz-icon nzType="clock-circle" nzTheme="outline"></span>
+                        {{ article.readTime }} 分鐘
+                      </span>
+                      <span class="read-more">
+                        閱讀全文
+                        <span nz-icon nzType="arrow-right"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="article-hover-line"></div>
+              </article>
+            }
+          </div>
+
+          <!-- 分頁 -->
+          <div class="pagination-wrapper">
+            <nz-pagination
+              [nzPageIndex]="currentPage"
+              [nzPageSize]="pageSize"
+              [nzTotal]="filteredArticles.length"
+              [nzShowTotal]="totalTemplate"
+              [nzShowSizeChanger]="true"
+              (nzPageIndexChange)="onPageChange($event)">
+            </nz-pagination>
+            <ng-template #totalTemplate let-total>
+              共 {{ total }} 篇
+            </ng-template>
+          </div>
+        } @else {
+          <!-- 空狀態 -->
+          <div class="empty-state">
+            <div class="empty-illustration">
+              <span class="empty-icon">📄</span>
+            </div>
+            <h3 class="empty-title">找不到相關文章</h3>
+            <p class="empty-text">嘗試調整搜尋條件或瀏覽其他分類</p>
+            <button nz-button nzType="primary" (click)="resetFilters()">
+              <span nz-icon nzType="reload"></span>
+              重設篩選
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</div>

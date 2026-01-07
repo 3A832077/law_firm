@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 
 /* 主視覺區塊 */
-.hero-carousel {
-  height: 55vh;
-  min-height: 500px;
-}
-
 .mb-4 {
   margin-bottom: 16px;
 }
@@ -26,8 +21,8 @@
 }
 
 .hero-slide {
-  height: 70vh;
-  min-height: 500px;
+  height: 65vh;
+  min-height: 450px;
   position: relative;
   display: flex;
   align-items: center;

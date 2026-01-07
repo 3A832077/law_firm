@@ -9,7 +9,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { data } from '../../data';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -27,8 +27,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-  heroSlides: any[] = data.heroSlides;
-
   lawyers: any[] = data.lawyers;
 
   articles: any[] = data.articles;
@@ -43,7 +41,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   sections: string[] = ['about', 'lawyers', 'articles', 'contact'];
 
-  activeSection: string = 'about';
+  activeSection: string = '';
 
   isScrolling: boolean = false; // 鎖定狀態
 
@@ -51,6 +49,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
+    private router: Router
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -72,16 +71,19 @@ export class MainComponent implements OnInit, OnDestroy {
    * @returns
    */
   scrollHandlerFn(): void {
-    // 如果正在滾動中，不更新 activeSection
-    if (this.isScrolling) return;
-
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const windowHeight = window.innerHeight;
-    const scrollCenter = scrollTop + windowHeight / 3;
+    const carouselHeight = document.querySelector('.hero-slide')?.clientHeight || 0;
+    const isHomePage = this.router.url === '/' || this.router.url === '/home';
+
+    // 滾動中、不在首頁、還在圖片區域內，都不選中
+    if (this.isScrolling || !isHomePage || scrollTop < carouselHeight - 100) {
+      this.activeSection = '';
+      return;
+    }
 
     for (let i = this.sections.length - 1; i >= 0; i--) {
       const element = document.getElementById(this.sections[i]);
-      if (element && element.offsetTop <= scrollCenter) {
+      if (element && element.offsetTop <= scrollTop + 100) {
         this.activeSection = this.sections[i];
         break;
       }
@@ -96,15 +98,26 @@ export class MainComponent implements OnInit, OnDestroy {
     // 點擊時鎖定，防止滾動過程中亂跳
     this.isScrolling = true;
     this.activeSection = sectionId;
-
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-
-    // 滾動完成後解除鎖定
-    setTimeout(() => {
-      this.isScrolling = false;
-    }, 500);
-
     this.close();
+
+    // 判斷是否在首頁
+    if (this.router.url === '/' || this.router.url === '/home') {
+      // 在首頁，直接滾動
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        this.isScrolling = false;
+      }, 800);
+    }
+    else {
+      // 不在首頁，先跳轉再滾動
+      this.router.navigate(['/home'], { fragment: sectionId }).then(() => {
+        setTimeout(() => {
+          document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+          this.isScrolling = false;
+        }, 300); // 等待頁面渲染
+      });
+    }
+
   }
 
   /**

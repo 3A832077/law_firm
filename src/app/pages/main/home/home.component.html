@@ -1,13 +1,8 @@
-<!-- 輪播 -->
-<nz-carousel nzAutoPlay [nzDotPosition]="'bottom'" class="hero-carousel" nzArrows nzEnableSwipe="false"
-  [nzEffect]="'scrollx'">
-  @for (item of heroSlides; track $index) {
-    <div nz-carousel-content class="hero-slide">
-      <img src="/img/unnamed.jpg" class="hero-bg" />
-      <div class="hero-overlay"></div>
-    </div>
-  }
-</nz-carousel>
+<!-- 封面圖 -->
+<div class="hero-slide">
+  <img src="/img/unnamed.jpg" class="hero-bg" />
+  <div class="hero-overlay"></div>
+</div>
 
 <!-- 關於我們 -->
 <div id="about" class="section about-section">
@@ -60,7 +55,7 @@
       }
     </div>
     <div class="more-lawyers">
-      <button nz-button nzSize="large" class="more-btn">
+      <button nz-button nzSize="large" class="more-btn" routerLink="/lawyers">
         <span>更多律師</span>
         <span nz-icon nzType="arrow-right"></span>
       </button>
@@ -88,7 +83,7 @@
       }
     </div>
     <div class="more-articles">
-      <button nz-button nzSize="large" class="more-btn">
+      <button nz-button nzSize="large" class="more-btn" routerLink="/articles">
         <span>查看更多</span>
         <span nz-icon nzType="read"></span>
       </button>
