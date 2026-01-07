@@ -51,15 +51,6 @@
   gap: 16px;
 }
 
-.filter-select {
-  min-width: 160px;
-}
-
-:host ::ng-deep .filter-select .ant-select-selector {
-  border-radius: 8px !important;
-  font-family: 'Noto Serif TC', serif;
-}
-
 .view-toggle {
   display: flex;
   gap: 4px;
@@ -91,6 +82,10 @@
 .stats-text strong {
   color: var(--primary-green);
   font-weight: 600;
+}
+
+::ng-deep .ant-page-header{
+  padding: 0;
 }
 
 /* ===== 律師網格 ===== */

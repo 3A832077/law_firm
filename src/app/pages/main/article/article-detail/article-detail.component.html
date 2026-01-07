@@ -1,0 +1,161 @@
+<div class="article-page" [class.loaded]="isLoaded">
+  <!-- 文章頭部 -->
+  <header class="article-header">
+    <div class="header-bg">
+      <div class="header-pattern"></div>
+      <div class="header-gradient"></div>
+    </div>
+    <div class="header-content">
+      <div class="breadcrumb-wrapper">
+        <nz-breadcrumb>
+          <nz-breadcrumb-item>
+            <a routerLink="/home"><span nz-icon nzType="home"></span></a>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item>
+            <a routerLink="/articles">言論選輯</a>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item>{{ article.category }}</nz-breadcrumb-item>
+        </nz-breadcrumb>
+      </div>
+
+      <div class="article-meta-top">
+        <nz-tag [nzColor]="'gold'">{{ article.category }}</nz-tag>
+        <span class="meta-date">{{ article.date }}</span>
+      </div>
+
+      <h1 class="article-title">{{ article.title }}</h1>
+
+      @if (article.subtitle) {
+        <p class="article-subtitle">{{ article.subtitle }}</p>
+      }
+
+      <div class="author-info">
+        <div class="author-avatar">
+          @if (article.authorAvatar) {
+            <img [src]="article.authorAvatar" [alt]="article.author" />
+          }
+          @else {
+            <span nz-icon nzType="user" nzTheme="outline"></span>
+          }
+        </div>
+        <div class="author-details">
+          <span class="author-name">{{ article.author }}</span>
+          @if (article.authorTitle) {
+            <span class="author-title">{{ article.authorTitle }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容區 -->
+  <main class="article-main">
+    <div class="article-container">
+      <!-- 中間：文章內容 -->
+      <article class="article-content">
+        <!-- 封面圖 -->
+        @if (article.coverImage) {
+          <figure class="article-cover">
+            <img [src]="article.coverImage" [alt]="article.title" />
+            <figcaption>圖片來源：示意圖</figcaption>
+          </figure>
+        }
+
+        <!-- 文章正文 -->
+        <div class="article-body" [innerHTML]="article.content"></div>
+
+        <!-- 更新資訊 -->
+        @if (article.updateDate) {
+          <div class="update-info">
+            <span nz-icon nzType="edit"></span>
+            最後更新：{{ article.updateDate }}
+          </div>
+        }
+
+        <nz-divider></nz-divider>
+
+        <!-- 作者資訊卡 -->
+        <div class="author-card">
+          <div class="author-card-avatar">
+            @if (article.authorAvatar) {
+              <img [src]="article.authorAvatar" [alt]="article.author" />
+            } @else {
+              <div class="avatar-placeholder">
+                <span nz-icon nzType="user" nzTheme="outline"></span>
+              </div>
+            }
+          </div>
+          <div class="author-card-info">
+            <div class="author-card-header">
+              <h3 class="author-card-name">{{ article.author }}</h3>
+              @if (article.authorTitle) {
+                <span class="author-card-title">{{ article.authorTitle }}</span>
+              }
+            </div>
+            @if (article.authorBio) {
+              <p class="author-card-bio">{{ article.authorBio }}</p>
+            }
+            <a class="author-more" [routerLink]="['/articles']" [queryParams]="{author: article.author}">
+              查看更多文章
+              <span nz-icon nzType="arrow-right"></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 文章導航 -->
+        <div class="article-nav">
+          @if (prevArticle) {
+            <a class="nav-item nav-prev" [routerLink]="['/articles', prevArticle.id]">
+              <span class="nav-label">
+                <span nz-icon nzType="left"></span>
+                上一篇
+              </span>
+              <span class="nav-title">{{ prevArticle.title }}</span>
+            </a>
+          }
+          @else {
+            <div class="nav-item nav-empty"></div>
+          }
+
+          @if (nextArticle) {
+            <a class="nav-item nav-next" [routerLink]="['/articles', nextArticle.id]">
+              <span class="nav-label">
+                下一篇
+                <span nz-icon nzType="right"></span>
+              </span>
+              <span class="nav-title">{{ nextArticle.title }}</span>
+            </a>
+          }
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- 相關文章 -->
+  <section class="related-section">
+    <div class="related-container">
+      <h2 class="related-title">
+        <span class="title-decoration"></span>
+        相關文章推薦
+        <span class="title-decoration"></span>
+      </h2>
+      <div class="related-grid">
+        @for (related of relatedArticles; track related.id) {
+          <a class="related-card" [routerLink]="['/articles', related.id]">
+            <div class="related-card-header">
+              <nz-tag [nzColor]="'green'" class="related-category">{{ related.category }}</nz-tag>
+              <span class="related-date">{{ related.date }}</span>
+            </div>
+            <h3 class="related-card-title">{{ related.title }}</h3>
+            <p class="related-excerpt">{{ related.excerpt }}</p>
+            <span class="read-more">
+              閱讀全文
+              <span nz-icon nzType="arrow-right"></span>
+            </span>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+
+</div>

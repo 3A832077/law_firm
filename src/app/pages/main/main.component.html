@@ -1,59 +1,72 @@
-<nz-layout class="layout" >
+<nz-layout class="layout">
   <nz-header class="header">
     <div class="header-content">
       <div class="logo">
         <img src="/img/logo_b.png" alt="雪谷南榕法律事務所" class="logo-img" routerLink="/home" />
       </div>
-      <ul nz-menu nzMode="horizontal" class="nav-menu" >
-        <li nz-menu-item (click)="scrollTo('about')" [nzSelected]="activeSection === 'about'">
-          <span class="nav-zh">關於雪谷南榕</span>
-          <span class="nav-en">About Us</span>
-        </li>
-        <li nz-menu-item (click)="scrollTo('lawyers')" [nzSelected]="activeSection === 'lawyers'">
-          <span class="nav-zh">律師簡介</span>
-          <span class="nav-en">Our Lawyers</span>
-        </li>
-        <li nz-menu-item (click)="scrollTo('articles')" [nzSelected]="activeSection === 'articles'">
-          <span class="nav-zh">言論選輯</span>
-          <span class="nav-en">Articles</span>
-        </li>
-        <li nz-menu-item (click)="scrollTo('contact')" [nzSelected]="activeSection === 'contact'">
-          <span class="nav-zh">聯絡我們</span>
-          <span class="nav-en">Contact Us</span>
-        </li>
-        <li nz-menu-item routerLink="/backend/lawyers">
-          <span class="nav-zh">管理後台</span>
-          <span class="nav-en">Backend</span>
-        </li>
+
+      <!-- 桌面導覽列 -->
+      <ul nz-menu nzMode="horizontal" class="nav-menu">
+        @for (item of navItems; track item.id) {
+          @if (item.hasDropdown) {
+            <!-- 有下拉選單 -->
+            <li nz-menu-item [nzSelected]="activeSection === item.id" nz-dropdown
+              [nzDropdownMenu]="item.id === 'lawyers' ? lawyersMenu : articlesMenu" (click)="scrollTo(item.id)">
+              <span class="nav-zh">
+                {{ item.zh }}
+                <span nz-icon nzType="down" class="dropdown-arrow"></span>
+              </span>
+              <span class="nav-en">{{ item.en }}</span>
+            </li>
+          }
+          @else if (item.route) {
+            <!-- 有路由連結 -->
+            <li nz-menu-item [routerLink]="item.route">
+              <span class="nav-zh">{{ item.zh }}</span>
+              <span class="nav-en">{{ item.en }}</span>
+            </li>
+          }
+          @else {
+            <!-- 一般滾動 -->
+            <li nz-menu-item [nzSelected]="activeSection === item.id" (click)="scrollTo(item.id)">
+              <span class="nav-zh">{{ item.zh }}</span>
+              <span class="nav-en">{{ item.en }}</span>
+            </li>
+          }
+        }
       </ul>
+
       <button nz-button (click)="open()" class="mobile-menu-btn" nzType="default">
         <span nz-icon nzType="menu-fold" matTooltip="展開導覽列" matTooltipPosition="left"></span>
       </button>
+
+      <!-- Dropdown Menus -->
+      <nz-dropdown-menu #lawyersMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item routerLink="/lawyers" [nzSelected]="isActive('/lawyers')">查看全部律師</li>
+        </ul>
+      </nz-dropdown-menu>
+
+      <nz-dropdown-menu #articlesMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item routerLink="/articles" [nzSelected]="isActive('/articles')">查看全部文章</li>
+        </ul>
+      </nz-dropdown-menu>
     </div>
-    @if (isBrowser){
+
+    <!-- 手機版 Drawer -->
+    @if (isBrowser) {
       <nz-drawer [nzClosable]="true" [nzVisible]="visible" nzPlacement="right" nzTitle="導覽列" (nzOnClose)="close()" [nzWidth]="200">
         <ng-container *nzDrawerContent>
           <ul nz-menu nzMode="inline" class="mobile-nav-menu">
-            <li nz-menu-item (click)="scrollTo('about')">
-              <span class="nav-zh">關於雪谷南榕</span>
-              <span class="nav-en">About Us</span>
-            </li>
-            <li nz-menu-item (click)="scrollTo('lawyers')">
-              <span class="nav-zh">律師簡介</span>
-              <span class="nav-en">Our Lawyers</span>
-            </li>
-            <li nz-menu-item (click)="scrollTo('articles')">
-              <span class="nav-zh">言論選輯</span>
-              <span class="nav-en">Articles</span>
-            </li>
-            <li nz-menu-item (click)="scrollTo('contact')">
-              <span class="nav-zh">聯絡我們</span>
-              <span class="nav-en">Contact Us</span>
-            </li>
-            <li nz-menu-item routerLink="/backend/lawyers">
-              <span class="nav-zh">管理後台</span>
-              <span class="nav-en">Backend</span>
-            </li>
+            @for (item of navItems; track item.id) {
+              <li nz-menu-item
+                  (click)="item.route ? null : scrollTo(item.id)"
+                  [routerLink]="item.route || null">
+                <span class="nav-zh">{{ item.zh }}</span>
+                <span class="nav-en">{{ item.en }}</span>
+              </li>
+            }
           </ul>
         </ng-container>
       </nz-drawer>
@@ -64,7 +77,6 @@
     <router-outlet></router-outlet>
   </nz-content>
 
-  <!-- 頁尾 -->
   <nz-divider></nz-divider>
   <nz-footer class="footer">
     <div class="footer-content">

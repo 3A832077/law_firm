@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { CommonModule, isPlatformBrowser, ViewportScroller } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -50,13 +50,6 @@ export class LawyersComponent implements OnInit{
 
   pageSize = 24;
 
-  // 專業領域選項
-  specialties = [
-    '刑事辯護', '民事訴訟', '人權訴訟', '憲法訴訟',
-    '行政訴訟', '勞動法', '商事法', '家事法',
-    '智慧財產',
-  ];
-
   // 律師資料
   allLawyers: any[] = data.lawyers;
 
@@ -64,12 +57,18 @@ export class LawyersComponent implements OnInit{
 
   paginatedLawyers: any[] = data.lawyers;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: object,
+    private router: Router
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
   }
 
+  onBack(){
+    this.router.navigate(['/home']);
+  }
 
 }

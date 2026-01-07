@@ -13,7 +13,8 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { RevealOnScrollDirective } from '../../../directive/reveal-on-scroll.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { data } from '../../../data';
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { first } from 'rxjs';
 @Component({
   selector: 'app-home',
   imports: [
@@ -23,7 +24,7 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
     NzIconModule, NzTypographyModule, NzDrawerModule,
     RevealOnScrollDirective,
     RouterLink
-],
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -41,22 +42,21 @@ export class HomeComponent implements OnInit{
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit(): void {
     if (this.isBrowser) {
-      // 監聽 fragment 變化
-      this.route.fragment.subscribe(fragment => {
-        if (fragment) {
-          setTimeout(() => {
-            document.getElementById(fragment)?.scrollIntoView({ behavior: 'smooth' });
-          }, 300);
-        }
-      });
+        // 只在第一次載入時處理 fragment
+        this.route.fragment.pipe(first()).subscribe(fragment => {
+          if (fragment) {
+            setTimeout(() => {
+              document.getElementById(fragment)?.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+          }
+        });
+      }
     }
-  }
-
 }

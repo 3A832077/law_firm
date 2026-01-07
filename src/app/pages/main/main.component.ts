@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -13,6 +13,7 @@ import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { data } from '../../data';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NzDropdownMenuComponent, NzDropDownModule } from 'ng-zorro-antd/dropdown';
 @Component({
   selector: 'app-main',
   imports: [
@@ -20,12 +21,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     NzCarouselModule, NzCardModule, NzGridModule,
     NzDividerModule, NzButtonModule, MatTooltipModule,
     NzIconModule, NzTypographyModule, RouterOutlet,
-    RouterLink, NzDrawerModule
+    RouterLink, NzDrawerModule, NzDropDownModule
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })
 export class MainComponent implements OnInit, OnDestroy {
+
+  @ViewChild('lawyersMenu') lawyersMenu!: NzDropdownMenuComponent;
+
+  @ViewChild('articlesMenu') articlesMenu!: NzDropdownMenuComponent;
 
   lawyers: any[] = data.lawyers;
 
@@ -47,6 +52,15 @@ export class MainComponent implements OnInit, OnDestroy {
 
   scrollHandler = this.scrollHandlerFn.bind(this);
 
+  // 導覽列設定
+  navItems = [
+    { id: 'about', zh: '關於雪谷南榕', en: 'About Us', hasDropdown: false },
+    { id: 'lawyers', zh: '律師簡介', en: 'Our Lawyers', hasDropdown: true },
+    { id: 'articles', zh: '言論選輯', en: 'Articles', hasDropdown: true },
+    { id: 'contact', zh: '聯絡我們', en: 'Contact Us', hasDropdown: false },
+    { id: 'backend', zh: '管理後台', en: 'Backend', hasDropdown: false, route: '/backend/lawyers' }
+  ];
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
     private router: Router
@@ -67,17 +81,28 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   /**
+  * 僅當前路徑完全相等時返回 true
+  * @param url
+  * @returns
+  */
+  isActive(url: string): boolean {
+    return this.router.url === url;
+  }
+
+  /**
    * 滾動後到某區塊則選中導覽列
    * @returns
    */
   scrollHandlerFn(): void {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const carouselHeight = document.querySelector('.hero-slide')?.clientHeight || 0;
-    const isHomePage = this.router.url === '/' || this.router.url === '/home';
+    const carouselHeight = document.querySelector('.hero-carousel')?.clientHeight || 0;
+    const currentPath = this.router.url.split('?')[0].split('#')[0]; // 移除 query 和 fragment
+    const isHomePage = currentPath === '/home' || currentPath === '/';
 
-    // 滾動中、不在首頁、還在圖片區域內，都不選中
     if (this.isScrolling || !isHomePage || scrollTop < carouselHeight - 100) {
-      this.activeSection = '';
+      if (!isHomePage) {
+        this.activeSection = '';
+      }
       return;
     }
 
@@ -101,7 +126,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.close();
 
     // 判斷是否在首頁
-    if (this.router.url === '/' || this.router.url === '/home') {
+    if (this.router.url === '/home') {
       // 在首頁，直接滾動
       document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
       setTimeout(() => {
@@ -134,4 +159,10 @@ export class MainComponent implements OnInit, OnDestroy {
     this.visible = false;
   }
 
+  get dropdownMenus(): { [key: string]: NzDropdownMenuComponent } {
+    return {
+      lawyers: this.lawyersMenu,
+      articles: this.articlesMenu
+    };
+  }
 }

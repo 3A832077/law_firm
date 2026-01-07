@@ -3,16 +3,13 @@
   <section class="filter-section">
     <div class="filter-container">
       <div class="filter-left">
-        <nz-input-search >
-          <input nz-input placeholder="搜尋律師" />
-        </nz-input-search>
+        <nz-page-header (nzBack)="onBack()" nzBackIcon nzSubtitle="返回首頁"></nz-page-header>
       </div>
       <div class="filter-right">
-        <nz-select [(ngModel)]="selectedSpecialty" nzPlaceHolder="專業領域" nzAllowClear class="filter-select">
-          @for (spec of specialties; track spec) {
-            <nz-option [nzValue]="spec" [nzLabel]="spec"></nz-option>
-          }
-        </nz-select>
+        <nz-input-wrapper >
+          <input nz-input placeholder="搜尋律師" nz-input [(ngModel)]="searchText" nzVariant="underlined"/>
+          <nz-icon nzInputSuffix nzType="search" />
+        </nz-input-wrapper>
         <div class="view-toggle">
           <button nz-button [nzType]="viewMode === 'grid' ? 'primary' : 'default'" (click)="viewMode = 'grid'" matTooltip="網格">
             <span nz-icon nzType="appstore"></span>
@@ -105,7 +102,7 @@
       }
 
       <!-- 空狀態 -->
-      <!-- @if (filteredLawyers.length === 0) {
+      @if (filteredLawyers.length === 0) {
         <div class="empty-state">
           <span nz-icon nzType="search" nzTheme="outline" class="empty-icon"></span>
           <p class="empty-text">找不到符合條件的律師</p>
@@ -113,7 +110,7 @@
             清除篩選條件
           </button>
         </div>
-      } -->
+      }
     </div>
 
     <!-- 分頁 -->
