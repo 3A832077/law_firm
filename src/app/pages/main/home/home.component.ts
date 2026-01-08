@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit{
 
   lawyers: any[] = data.lawyers;
 
-  articles: any[] = data.articles;
+  articles: any[] = data.articles.slice(0, 6);
 
   offices: any[] = data.offices;
 

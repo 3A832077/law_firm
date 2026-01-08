@@ -32,7 +32,8 @@
         <div nz-row [nzGutter]="[32, 32]" class="lawyers-grid">
           @for (lawyer of paginatedLawyers; track lawyer.id; let i = $index) {
             <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="6">
-              <div class="lawyer-card animate-card" [style.animation-delay]="(i * 0.08) + 's'">
+              <div class="lawyer-card animate-card" [style.animation-delay]="(i * 0.08) + 's'"
+                [routerLink]="['/lawyers', lawyer.id]">
                 <div class="card-image-wrapper">
                   <img [src]="'/img/' + lawyer.avatar" [alt]="lawyer.name" class="card-image" loading="lazy" />
                   <div class="card-image-overlay">

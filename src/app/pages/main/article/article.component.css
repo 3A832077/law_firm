@@ -41,6 +41,10 @@
   max-width: 450px;
 }
 
+::ng-deep .ant-page-header{
+  padding: 0;
+}
+
 /* 搜尋框 */
 .search-input {
   flex: 1;

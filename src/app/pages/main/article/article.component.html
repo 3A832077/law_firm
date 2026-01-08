@@ -4,14 +4,12 @@
     <div class="filter-container">
       <div class="filter-row">
         <div class="filter-left">
-
+          <nz-page-header (nzBack)="onBack()" nzBackIcon nzSubtitle="返回首頁"></nz-page-header>
         </div>
         <div class="filter-right">
-          <nz-select [(ngModel)]="selectedYear" nzPlaceHolder="所有年份" nzAllowClear class="filter-select" (ngModelChange)="onFilter()" nzVariant="underlined">
-            @for (year of years; track year) {
-              <nz-option [nzValue]="year" [nzLabel]="year + ' 年'"></nz-option>
-            }
-          </nz-select>
+          <nz-date-picker nzMode="year" [(ngModel)]="selectedYearDate" (ngModelChange)="onFilter()" nzFormat="yyyy"
+            nzPlaceHolder="選擇年份" nzVariant="underlined">
+          </nz-date-picker>
           <nz-select [(ngModel)]="sortBy" class="filter-select sort-select" (ngModelChange)="onSort()" nzVariant="underlined">
             <nz-option nzValue="newest" nzLabel="最新發布"></nz-option>
             <nz-option nzValue="oldest" nzLabel="最舊發布"></nz-option>

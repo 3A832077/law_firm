@@ -87,27 +87,11 @@ export class ArticleDetailComponent implements OnInit{
       <p>唯有透過制度的持續完善，才能使憲法法庭在追求實質正義的同時，也能獲得人民的信賴與支持。</p>
     `,
     author: '李宣毅',
-    authorTitle: '主持律師',
-    authorBio: '國立台灣大學法律系畢業，執業超過10年，專精於人權訴訟、刑事辯護與憲法訴訟。曾參與多起重大社會矚目案件。',
     date: '2024.02.22',
     updateDate: '2024.03.15',
-    category: '法律評論',
-    tags: ['憲法', '大法官', '司法改革', '迴避制度', '正當程序'],
     readTime: 12,
-    views: 1580
   };
 
-  // 目錄
-  tableOfContents = [
-    { id: 'section-1', text: '一、前言：迴避爭議的緣起', level: 2 },
-    { id: 'section-2', text: '二、迴避制度的憲法基礎', level: 2 },
-    { id: 'section-2-1', text: '（一）正當法律程序原則', level: 3 },
-    { id: 'section-2-2', text: '（二）公平審判原則', level: 3 },
-    { id: 'section-3', text: '三、大法官迴避的特殊性', level: 2 },
-    { id: 'section-4', text: '四、現行制度的問題檢討', level: 2 },
-    { id: 'section-5', text: '五、比較法的觀察', level: 2 },
-    { id: 'section-6', text: '六、結論與建議', level: 2 },
-  ];
 
   // 上下篇
   prevArticle: any | null = {
@@ -169,48 +153,9 @@ export class ArticleDetailComponent implements OnInit{
     if (this.isBrowser) {
       setTimeout(() => {
         this.isLoaded = true;
-        this.initReadingProgress();
       }, 100);
     }
   }
 
-  private initReadingProgress(): void {
-    if (!this.isBrowser) return;
-
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      this.readingProgress = (scrollTop / docHeight) * 100;
-    });
-  }
-
-  shareToFacebook(): void {
-    if (this.isBrowser) {
-      const url = encodeURIComponent(window.location.href);
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
-    }
-  }
-
-  shareToLine(): void {
-    if (this.isBrowser) {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(this.article.title);
-      window.open(`https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
-    }
-  }
-
-  copyLink(): void {
-    if (this.isBrowser) {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        this.message.success('連結已複製到剪貼簿');
-      });
-    }
-  }
-
-  printArticle(): void {
-    if (this.isBrowser) {
-      window.print();
-    }
-  }
 
 }

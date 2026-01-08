@@ -1,0 +1,207 @@
+<div class="lawyer-detail-page">
+  <!-- 頂部 Hero 區 -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="breadcrumb-wrapper">
+        <nz-breadcrumb>
+          <nz-breadcrumb-item>
+            <a routerLink="/home">首頁</a>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item>
+            <a routerLink="/lawyers">所有律師</a>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item>{{ lawyer.name }}</nz-breadcrumb-item>
+        </nz-breadcrumb>
+      </div>
+    </div>
+  </section>
+
+  <!-- 律師資訊主區 -->
+  <section class="profile-section">
+    <div class="profile-container">
+      <!-- 左側：照片與基本資訊 -->
+      <aside class="profile-sidebar">
+        <div class="profile-card">
+          <div class="avatar-wrapper">
+            <img
+              [src]="'img/' + lawyer.avatar"
+              [alt]="lawyer.name"
+              class="avatar-img"
+              (error)="onImageError($event)" />
+            <div class="avatar-decoration"></div>
+          </div>
+
+          <div class="basic-info">
+            <h1 class="lawyer-name">{{ lawyer.name }}</h1>
+            <p class="lawyer-english">{{ lawyer.englishName }}</p>
+            <p class="lawyer-title">{{ lawyer.title }}</p>
+
+            @if (lawyer.motto) {
+              <blockquote class="lawyer-motto">
+                「{{ lawyer.motto }}」
+              </blockquote>
+            }
+          </div>
+
+          <div class="specialty-tags">
+            @for (spec of lawyer.specialty; track spec) {
+              <nz-tag [nzColor]="'green'">{{ spec }}</nz-tag>
+            }
+          </div>
+
+          <nz-divider></nz-divider>
+
+          <!-- 聯絡資訊 -->
+          <div class="contact-info">
+            <h3 class="info-title">
+              <span nz-icon nzType="contacts" nzTheme="outline"></span>
+              聯絡方式
+            </h3>
+            <div class="contact-item">
+              <span nz-icon nzType="mail" nzTheme="outline"></span>
+              <a [href]="'mailto:' + lawyer.email">{{ lawyer.email }}</a>
+            </div>
+            @if (lawyer.phone) {
+              <div class="contact-item">
+                <span nz-icon nzType="phone" nzTheme="outline"></span>
+                <a [href]="'tel:' + lawyer.phone">{{ lawyer.phone }}</a>
+              </div>
+            }
+          </div>
+
+          @if (lawyer.languages && lawyer.languages.length > 0) {
+            <nz-divider></nz-divider>
+            <div class="languages-info">
+              <h3 class="info-title">
+                <span nz-icon nzType="global" nzTheme="outline"></span>
+                使用語言
+              </h3>
+              <div class="language-tags">
+                @for (lang of lawyer.languages; track lang) {
+                  <span class="language-tag">{{ lang }}</span>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- 預約諮詢按鈕 -->
+          <div class="cta-buttons">
+            <button nz-button nzType="primary" nzBlock nzSize="large" class="consult-btn">
+              <span nz-icon nzType="calendar"></span>
+              <span>預約諮詢</span>
+            </button>
+            <button nz-button nzBlock nzSize="large" class="contact-btn" routerLink="/contact">
+              <span nz-icon nzType="message"></span>
+              <span>聯絡事務所</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 右側：詳細資訊 -->
+      <main class="profile-main">
+        <!-- 專業領域 -->
+        <div class="section-card">
+          <h2 class="section-title">
+            <span class="title-icon">⚖</span>
+            專業領域
+            <span class="title-line"></span>
+          </h2>
+          <div class="expertise-grid">
+            @for (exp of lawyer.expertise; track exp.area) {
+              <div class="expertise-item">
+                <div class="expertise-icon">
+                  {{ exp.icon || '📋' }}
+                </div>
+                <div class="expertise-content">
+                  <h3 class="expertise-title">{{ exp.area }}</h3>
+                  <p class="expertise-desc">{{ exp.description }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- 學歷與經歷 -->
+        <div class="section-card">
+          <h2 class="section-title">
+            <span class="title-icon">🎓</span>
+            學經歷
+            <span class="title-line"></span>
+          </h2>
+
+          <div nz-row [nzGutter]="[48, 24]">
+            <!-- 學歷 -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+              <h3 class="subsection-title">
+                <span nz-icon nzType="read" nzTheme="outline"></span>
+                學歷
+              </h3>
+              <nz-timeline class="education-timeline">
+                @for (edu of lawyer.education; track edu.school) {
+                  <nz-timeline-item [nzColor]="'#c9a961'">
+                    <div class="timeline-content">
+                      <span class="timeline-degree">{{ edu.degree }}</span>
+                      <span class="timeline-school">{{ edu.school }}</span>
+                      @if (edu.major) {
+                        <span class="timeline-major">{{ edu.major }}</span>
+                      }
+                      @if (edu.year) {
+                        <span class="timeline-year">{{ edu.year }}</span>
+                      }
+                    </div>
+                  </nz-timeline-item>
+                }
+              </nz-timeline>
+            </div>
+
+            <!-- 經歷 -->
+            <div nz-col [nzXs]="24" [nzMd]="12">
+              <h3 class="subsection-title">
+                <span nz-icon nzType="trophy" nzTheme="outline"></span>
+                經歷
+              </h3>
+              <nz-timeline class="experience-timeline">
+                @for (exp of lawyer.experience; track exp.organization) {
+                  <nz-timeline-item [nzColor]="exp.current ? '#2d5a27' : '#c9a961'">
+                    <div class="timeline-content">
+                      <span class="timeline-position">
+                        {{ exp.position }}
+                        @if (exp.current) {
+                          <nz-tag nzColor="green" class="current-tag">現職</nz-tag>
+                        }
+                      </span>
+                      <span class="timeline-org">{{ exp.organization }}</span>
+                      @if (exp.period) {
+                        <span class="timeline-period">{{ exp.period }}</span>
+                      }
+                    </div>
+                  </nz-timeline-item>
+                }
+              </nz-timeline>
+            </div>
+          </div>
+        </div>
+
+        <!-- 重要案件經歷 -->
+        @if (lawyer.cases && lawyer.cases.length > 0) {
+          <div class="section-card">
+            <h2 class="section-title">
+              <span class="title-icon">📁</span>
+              重要案件經歷
+              <span class="title-line"></span>
+            </h2>
+            <ul class="cases-list">
+              @for (caseItem of lawyer.cases; track caseItem) {
+                <li class="case-item">
+                  <span class="case-bullet"></span>
+                  {{ caseItem }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </main>
+    </div>
+  </section>
+</div>

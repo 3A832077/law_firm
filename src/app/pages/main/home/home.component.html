@@ -74,7 +74,8 @@
     <div nz-row [nzGutter]="16">
       @for (item of articles; track $index; let i = $index) {
         <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" class="mb-4" appRevealOnScroll [appRevealOnScrollDelay]="i * 100">
-          <nz-card class="article-card" [nzBordered]="false" nzHoverable style="height: 100%;">
+          <nz-card class="article-card" [nzBordered]="false" nzHoverable style="height: 100%;"
+            [routerLink]="['/articles', item.id]">
             <span class="article-date">{{ item.date }}</span>
             <h3 class="article-title">{{ item.title }}</h3>
             <p class="article-author">發文者：{{ item.author }}</p>

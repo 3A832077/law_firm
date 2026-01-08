@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -8,14 +8,12 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzEmptyModule } from 'ng-zorro-antd/empty';
-import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { data } from '../../../data';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @Component({
   selector: 'app-article',
@@ -29,13 +27,11 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
     NzIconModule,
     NzInputModule,
     NzSelectModule,
-    NzTagModule,
     NzBreadCrumbModule,
     NzPaginationModule,
     NzDividerModule,
-    NzEmptyModule,
-    NzSkeletonModule,
-    NzPageHeaderModule
+    NzPageHeaderModule,
+    NzDatePickerModule
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
@@ -49,18 +45,12 @@ export class ArticleComponent implements OnInit{
 
   selectedCategory: string | null = null;
 
-  selectedYear: string | null = null;
-
-  selectedTag: string | null = null;
-
   sortBy = 'newest';
 
   // 分頁
   currentPage = 1;
 
   pageSize = 10;
-
-  years = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017'];
 
   // 文章資料
   allArticles: any[] = data.articles;
@@ -71,8 +61,11 @@ export class ArticleComponent implements OnInit{
 
   yearStats: { year: string; count: number }[] = [];
 
+  selectedYearDate: Date | null = null;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
+    private router: Router
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -106,9 +99,8 @@ export class ArticleComponent implements OnInit{
     this.updatePaginatedArticles();
   }
 
-  selectYear(year: string): void {
-    this.selectedYear = this.selectedYear === year ? null : year;
-    this.filterArticles();
+  get selectedYear(): string | null {
+    return this.selectedYearDate?.getFullYear()?.toString() ?? null;
   }
 
   private filterArticles(): void {
@@ -150,7 +142,7 @@ export class ArticleComponent implements OnInit{
 
   resetFilters(): void {
     this.searchText = '';
-    this.selectedYear = null;
+    this.selectedYearDate = null;
     this.sortBy = 'newest';
     this.filteredArticles = [...this.allArticles];
     this.sortArticles();
@@ -174,6 +166,10 @@ export class ArticleComponent implements OnInit{
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.paginatedArticles = this.filteredArticles.slice(startIndex, endIndex);
+  }
+
+  onBack(){
+    this.router.navigate(['/home']);
   }
 
 }

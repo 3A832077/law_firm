@@ -1,25 +1,20 @@
 <div class="article-page" [class.loaded]="isLoaded">
   <!-- 文章頭部 -->
   <header class="article-header">
-    <div class="header-bg">
-      <div class="header-pattern"></div>
-      <div class="header-gradient"></div>
-    </div>
     <div class="header-content">
       <div class="breadcrumb-wrapper">
         <nz-breadcrumb>
           <nz-breadcrumb-item>
-            <a routerLink="/home"><span nz-icon nzType="home"></span></a>
+            <a routerLink="/home">首頁</a>
           </nz-breadcrumb-item>
           <nz-breadcrumb-item>
-            <a routerLink="/articles">言論選輯</a>
+            <a routerLink="/articles">所有文章</a>
           </nz-breadcrumb-item>
-          <nz-breadcrumb-item>{{ article.category }}</nz-breadcrumb-item>
+          <nz-breadcrumb-item>{{ article.title }}</nz-breadcrumb-item>
         </nz-breadcrumb>
       </div>
 
       <div class="article-meta-top">
-        <nz-tag [nzColor]="'gold'">{{ article.category }}</nz-tag>
         <span class="meta-date">{{ article.date }}</span>
       </div>
 
@@ -40,13 +35,11 @@
         </div>
         <div class="author-details">
           <span class="author-name">{{ article.author }}</span>
-          @if (article.authorTitle) {
-            <span class="author-title">{{ article.authorTitle }}</span>
-          }
         </div>
       </div>
     </div>
   </header>
+  <nz-divider></nz-divider>
 
   <!-- 主內容區 -->
   <main class="article-main">
@@ -74,34 +67,6 @@
 
         <nz-divider></nz-divider>
 
-        <!-- 作者資訊卡 -->
-        <div class="author-card">
-          <div class="author-card-avatar">
-            @if (article.authorAvatar) {
-              <img [src]="article.authorAvatar" [alt]="article.author" />
-            } @else {
-              <div class="avatar-placeholder">
-                <span nz-icon nzType="user" nzTheme="outline"></span>
-              </div>
-            }
-          </div>
-          <div class="author-card-info">
-            <div class="author-card-header">
-              <h3 class="author-card-name">{{ article.author }}</h3>
-              @if (article.authorTitle) {
-                <span class="author-card-title">{{ article.authorTitle }}</span>
-              }
-            </div>
-            @if (article.authorBio) {
-              <p class="author-card-bio">{{ article.authorBio }}</p>
-            }
-            <a class="author-more" [routerLink]="['/articles']" [queryParams]="{author: article.author}">
-              查看更多文章
-              <span nz-icon nzType="arrow-right"></span>
-            </a>
-          </div>
-        </div>
-
         <!-- 文章導航 -->
         <div class="article-nav">
           @if (prevArticle) {
@@ -116,7 +81,6 @@
           @else {
             <div class="nav-item nav-empty"></div>
           }
-
           @if (nextArticle) {
             <a class="nav-item nav-next" [routerLink]="['/articles', nextArticle.id]">
               <span class="nav-label">
@@ -143,7 +107,6 @@
         @for (related of relatedArticles; track related.id) {
           <a class="related-card" [routerLink]="['/articles', related.id]">
             <div class="related-card-header">
-              <nz-tag [nzColor]="'green'" class="related-category">{{ related.category }}</nz-tag>
               <span class="related-date">{{ related.date }}</span>
             </div>
             <h3 class="related-card-title">{{ related.title }}</h3>
@@ -157,5 +120,4 @@
       </div>
     </div>
   </section>
-
 </div>
