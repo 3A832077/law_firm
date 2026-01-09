@@ -6,10 +6,9 @@
         <nz-page-header (nzBack)="onBack()" nzBackIcon nzSubtitle="返回首頁"></nz-page-header>
       </div>
       <div class="filter-right">
-        <nz-input-wrapper >
-          <input nz-input placeholder="搜尋律師" nz-input [(ngModel)]="searchText" nzVariant="underlined"/>
-          <nz-icon nzInputSuffix nzType="search" />
-        </nz-input-wrapper>
+        <nz-input-search nzAllowClear (nzSearch)="filterLawyers()" class="search-input">
+          <input nz-input [(ngModel)]="searchText" placeholder="搜尋律師" />
+        </nz-input-search>
         <div class="view-toggle">
           <button nz-button [nzType]="viewMode === 'grid' ? 'primary' : 'default'" (click)="viewMode = 'grid'" matTooltip="網格">
             <span nz-icon nzType="appstore"></span>
@@ -115,16 +114,15 @@
     </div>
 
     <!-- 分頁 -->
-    <!-- @if (filteredLawyers.length > pageSize) {
-      <div class="pagination-wrapper">
-        <nz-pagination
-          [nzPageIndex]="currentPage"
-          [nzPageSize]="pageSize"
-          [nzTotal]="filteredLawyers.length"
-          [nzPageSizeOptions]="[24,36,48,72]"
-          [nzShowSizeChanger]="true">
-        </nz-pagination>
-      </div>
-    } -->
+    <div class="pagination-wrapper">
+      <nz-pagination
+        [nzPageIndex]="currentPage"
+        [nzPageSize]="pageSize"
+        [nzTotal]="filteredLawyers.length"
+        [nzPageSizeOptions]="[24,36,48,72]"
+        [nzShowSizeChanger]="true"
+        (nzPageIndexChange)="onPageChange($event)">
+      </nz-pagination>
+    </div>
   </section>
 </div>

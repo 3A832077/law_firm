@@ -15,11 +15,9 @@
             <nz-option nzValue="oldest" nzLabel="最舊發布"></nz-option>
             <nz-option nzValue="title" nzLabel="標題排序"></nz-option>
           </nz-select>
-          <nz-input-wrapper class="search-input">
-            <input nz-input placeholder="搜尋文章標題、內容" (nzSearch)="onSearch()"
-              nz-input [(ngModel)]="searchText" nzVariant="underlined"/>
-            <nz-icon nzInputSuffix nzType="search" />
-          </nz-input-wrapper>
+          <nz-input-search nzAllowClear (nzSearch)="onSearch()" class="search-input">
+            <input nz-input [(ngModel)]="searchText" placeholder="搜尋文章，內容" />
+          </nz-input-search>
         </div>
       </div>
     </div>

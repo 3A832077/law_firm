@@ -45,18 +45,20 @@ export class LawyerDeatilComponent implements OnInit{
     title: '主持律師',
     avatar: 'lawyer3.jpg',
     specialty: ['刑事辯護', '人權訴訟', '憲法訴訟'],
-    email: 'lee@banyanlaw.com',
-    phone: '03-522-2216',
+    email: '',
+    phone: '',
     motto: '在價值追求的道路上，並不是因為有希望所以堅持，而是因為堅持，才看見希望。',
     languages: ['中文', '英文', '台語'],
     education: [
-      { degree: '法學碩士', school: '國立台灣大學法律學研究所', major: '刑事法學組', year: '2010' },
-      { degree: '法學學士', school: '國立台灣大學法律學系', year: '2006' },
+      { degree: '法學士', school: '政治大學' },
+      { degree: '刑事法組碩士', school: '東吳大學法研所' },
+      { degree: '法律碩士', school: '美國芝加哥西北大學' },
     ],
     experience: [
-      { position: '主持律師', organization: '雪谷南榕法律事務所', period: '2014 - 迄今', current: true },
-      { position: '執業律師', organization: '德晴法律事務所', period: '2011 - 2014' },
-      { position: '法務專員', organization: '台灣人權促進會', period: '2009 - 2011' },
+      { position: '常務執行委員', organization: '民間司法改革基金會'},
+      { position: '主任委員', organization: '台中律師公會刑事委員會',  },
+      { position: '主任委員', organization: '台中律師公會人權保障委員會', },
+      { position: '分會理事長', organization: '國際特赦組織', },
     ],
     expertise: [
       { area: '刑事辯護', description: '重大刑事案件辯護、偵查程序權利保障、冤案救援', icon: '⚖️' },
@@ -71,13 +73,6 @@ export class LawyerDeatilComponent implements OnInit{
       '318 佔領立法院案辯護律師',
       '鄭性澤案再審辯護律師',
     ],
-    publications: [
-      { title: '大法官迴避不了的憲法義務', type: '專文', year: '2024' },
-      { title: '刑事訴訟中的正當程序保障', type: '論文', year: '2022' },
-      { title: '冤案救援的法律與實務', type: '專書', year: '2020' },
-      { title: '言論自由的界限與保障', type: '專文', year: '2019' },
-    ],
-    awards: ['2018 法扶基金會傑出公益律師獎'],
   };
 
 

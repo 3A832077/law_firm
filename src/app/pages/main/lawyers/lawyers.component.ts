@@ -65,10 +65,41 @@ export class LawyersComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.filteredLawyers = [...this.allLawyers];
+    this.updatePaginatedLawyers();
   }
 
   onBack(){
     this.router.navigate(['/home']);
   }
+
+  filterLawyers(): void {
+    this.filteredLawyers = this.allLawyers.filter(lawyer => {
+      const matchesSearch = !this.searchText || lawyer.name.includes(this.searchText)
+      return matchesSearch;
+    });
+
+    this.currentPage = 1;
+    this.updatePaginatedLawyers();
+  }
+
+  resetFilters(): void {
+    this.searchText = '';
+    this.filteredLawyers = [...this.allLawyers];
+    this.currentPage = 1;
+    this.updatePaginatedLawyers();
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updatePaginatedLawyers();
+  }
+
+  private updatePaginatedLawyers(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedLawyers = this.filteredLawyers.slice(startIndex, endIndex);
+  }
+
 
 }
