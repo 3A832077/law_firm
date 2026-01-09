@@ -9,9 +9,8 @@
       <ul nz-menu nzMode="horizontal" class="nav-menu">
         @for (item of navItems; track item.id) {
           @if (item.hasDropdown) {
-            <!-- 有下拉選單 -->
             <li nz-menu-item [nzSelected]="activeSection === item.id" nz-dropdown
-              [nzDropdownMenu]="item.id === 'lawyers' ? lawyersMenu : articlesMenu" (click)="scrollTo(item.id)">
+                [nzDropdownMenu]="item.id === 'lawyers' ? lawyersMenu : articlesMenu" (click)="scrollTo(item.id)">
               <span class="nav-zh">
                 {{ item.zh }}
                 <span nz-icon nzType="down" class="dropdown-arrow"></span>
@@ -20,14 +19,12 @@
             </li>
           }
           @else if (item.route) {
-            <!-- 有路由連結 -->
             <li nz-menu-item [routerLink]="item.route">
               <span class="nav-zh">{{ item.zh }}</span>
               <span class="nav-en">{{ item.en }}</span>
             </li>
           }
           @else {
-            <!-- 一般滾動 -->
             <li nz-menu-item [nzSelected]="activeSection === item.id" (click)="scrollTo(item.id)">
               <span class="nav-zh">{{ item.zh }}</span>
               <span class="nav-en">{{ item.en }}</span>
@@ -56,16 +53,44 @@
 
     <!-- 手機版 Drawer -->
     @if (isBrowser) {
-      <nz-drawer [nzClosable]="true" [nzVisible]="visible" nzPlacement="right" nzTitle="導覽列" (nzOnClose)="close()" [nzWidth]="200">
+      <nz-drawer [nzClosable]="true" [nzVisible]="visible" nzPlacement="right" nzTitle="導覽列" (nzOnClose)="close()" [nzWidth]="220"
+        nzMaskClosable="false">
         <ng-container *nzDrawerContent>
           <ul nz-menu nzMode="inline" class="mobile-nav-menu">
             @for (item of navItems; track item.id) {
-              <li nz-menu-item
-                  (click)="item.route ? null : scrollTo(item.id)"
-                  [routerLink]="item.route || null">
-                <span class="nav-zh">{{ item.zh }}</span>
-                <span class="nav-en">{{ item.en }}</span>
-              </li>
+              @if (item.hasDropdown) {
+                <!-- 有下拉選單 -->
+                <li nz-submenu [nzOpen]="false">
+                  <span title (click)="handleNavClick(item)">
+                    <span class="nav-zh">{{ item.zh }}</span>
+                    <span class="nav-en">{{ item.en }}</span>
+                  </span>
+                  <ul>
+                    @if (item.id === 'lawyers') {
+                      <li nz-menu-item routerLink="/lawyers" (click)="close()"
+                        [nzSelected]="isActive('/lawyers')">查看全部律師</li>
+                    }
+                    @if (item.id === 'articles') {
+                      <li nz-menu-item routerLink="/articles" (click)="close()"
+                        [nzSelected]="isActive('/articles')">查看全部文章</li>
+                    }
+                  </ul>
+                </li>
+              }
+              @else if (item.route) {
+                <!-- 有路由連結 -->
+                <li nz-menu-item [routerLink]="item.route" (click)="close()">
+                  <span class="nav-zh">{{ item.zh }}</span>
+                  <span class="nav-en">{{ item.en }}</span>
+                </li>
+              }
+              @else {
+                <!-- 一般滾動 -->
+                <li nz-menu-item (click)="handleNavClick(item)">
+                  <span class="nav-zh">{{ item.zh }}</span>
+                  <span class="nav-en">{{ item.en }}</span>
+                </li>
+              }
             }
           </ul>
         </ng-container>

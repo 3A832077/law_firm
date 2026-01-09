@@ -71,39 +71,39 @@ export class ArticleComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.initializeData();
-  }
-
-  private initializeData(): void {
-    // 初始化篩選
     this.filteredArticles = [...this.allArticles];
     this.sortArticles();
     this.updatePaginatedArticles();
   }
 
+  /**
+   * 取得作者
+   * @returns
+   */
   getUniqueAuthors(): number {
     const authors = new Set(this.allArticles.map(a => a.author));
     return authors.size;
   }
 
-  onSearch(): void {
-    this.filterArticles();
+  /**
+   * 選擇的年改為字串
+   */
+  get selectedYear(): string | null {
+    return this.selectedYearDate?.getFullYear()?.toString() ?? null;
   }
 
-  onFilter(): void {
-    this.filterArticles();
-  }
-
+  /**
+   * 排序改變
+   */
   onSort(): void {
     this.sortArticles();
     this.updatePaginatedArticles();
   }
 
-  get selectedYear(): string | null {
-    return this.selectedYearDate?.getFullYear()?.toString() ?? null;
-  }
-
-  private filterArticles(): void {
+  /**
+   * 搜尋文章&篩選年份
+   */
+  filterArticles(): void {
     this.filteredArticles = this.allArticles.filter(article => {
       // 搜尋文字
       const matchesSearch = !this.searchText ||
@@ -122,7 +122,10 @@ export class ArticleComponent implements OnInit{
     this.updatePaginatedArticles();
   }
 
-  private sortArticles(): void {
+  /**
+   * 排序
+   */
+  sortArticles(): void {
     switch (this.sortBy) {
       case 'newest':
         this.filteredArticles.sort((a, b) =>
@@ -140,6 +143,9 @@ export class ArticleComponent implements OnInit{
     }
   }
 
+  /**
+   * 重置篩選條件
+   */
   resetFilters(): void {
     this.searchText = '';
     this.selectedYearDate = null;
@@ -150,24 +156,27 @@ export class ArticleComponent implements OnInit{
     this.updatePaginatedArticles();
   }
 
+  /**
+   * 換頁
+   * @param page
+   */
   onPageChange(page: number): void {
     this.currentPage = page;
     this.updatePaginatedArticles();
-
-    if (this.isBrowser) {
-      const section = document.querySelector('.articles-section');
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
   }
 
-  private updatePaginatedArticles(): void {
+  /**
+   * 換頁列表改變
+   */
+  updatePaginatedArticles(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.paginatedArticles = this.filteredArticles.slice(startIndex, endIndex);
   }
 
+  /**
+   * 返回首頁
+   */
   onBack(){
     this.router.navigate(['/home']);
   }

@@ -139,14 +139,12 @@ export class ArticleDetailComponent implements OnInit{
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
-    private route: ActivatedRoute,
-    private message: NzMessageService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
-    // 實際應用中，這裡會根據路由參數載入文章
+
   }
 
   ngAfterViewInit(): void {

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 
+/* ===== 全域變數 & 基礎 ===== */
 .layout {
   min-height: 100vh;
   background: var(--cream);
@@ -9,7 +10,7 @@
   margin-bottom: 16px;
 }
 
-/* Header & Navigation */
+/* ===== Header ===== */
 .header {
   position: sticky;
   top: 0;
@@ -32,7 +33,7 @@
   height: 100%;
 }
 
-/* Logo */
+/* ===== Logo ===== */
 .logo {
   display: flex;
   align-items: center;
@@ -44,41 +45,12 @@
   cursor: pointer;
 }
 
-/* Navigation Menu */
-.nav-menu {
-  background: transparent;
-  border: none;
-  line-height: normal;
-}
-
-.nav-menu ::ng-deep .ant-menu-item {
-  padding: 0 24px;
-  margin: 0 4px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  height: auto !important;       /* 關鍵：取消固定高度，讓它能隨內容長高 */
-  line-height: normal !important; /* 關鍵：取消單行行高限制 */
-  padding: 12px 24px;            /* 加上適當的內距，讓上下有點呼吸空間 */
-  display: inline-flex;          /* 保持 menu item 本身是橫排的 */
-  align-items: center;           /* 垂直置中 */
-}
-
-.nav-menu ::ng-deep .ant-menu-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.nav-menu ::ng-deep .ant-menu-title-content {
-  display: flex;
-  flex-direction: column; /* 關鍵：變成直向排列 (上下) */
-  align-items: center;    /* 水平置中對齊 */
-  justify-content: center;
-}
-
+/* ===== 導覽列共用文字樣式 ===== */
 .nav-zh {
   font-family: 'Noto Serif TC', serif;
   font-size: 1rem;
-  color: var(--dark-green);
   font-weight: 500;
+  color: var(--dark-green);
 }
 
 .nav-en {
@@ -89,6 +61,36 @@
   letter-spacing: 1px;
 }
 
+/* ===== 桌面導覽列 ===== */
+.nav-menu {
+  background: transparent;
+  border: none;
+  line-height: normal;
+}
+
+.nav-menu ::ng-deep .ant-menu-item {
+  height: auto !important;
+  line-height: normal !important;
+  padding: 12px 24px;
+  margin: 0 4px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.nav-menu ::ng-deep .ant-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu ::ng-deep .ant-menu-title-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 選中底線效果 */
 ::ng-deep .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
 ::ng-deep .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after {
   border-bottom-color: transparent !important;
@@ -96,6 +98,15 @@
   height: 2.5px;
 }
 
+/* 下拉箭頭 */
+.dropdown-arrow {
+  font-size: 10px;
+  margin-left: 4px;
+  opacity: 0.6;
+  transition: transform 0.3s;
+}
+
+/* ===== 下拉選單 ===== */
 ::ng-deep .ant-dropdown-menu {
   background: #f8f6f3;
   border: 1px solid #d4c4a8;
@@ -115,20 +126,115 @@
   color: #5d4e3a;
 }
 
-/* 選中效果 */
 ::ng-deep .ant-dropdown-menu-item-selected {
   background: rgba(139, 115, 85, 0.1);
   color: #8b7355;
 }
 
-.dropdown-arrow {
-  font-size: 10px;
-  margin-left: 4px;
-  opacity: 0.6;
-  transition: transform 0.3s;
+/* ===== 手機版抽屜導覽列 ===== */
+.mobile-menu-btn {
+  display: none;
 }
 
-/*Footer*/
+.mobile-nav-menu {
+  border-right: none;
+}
+
+/* menu-item 樣式 */
+.mobile-nav-menu ::ng-deep .ant-menu-item {
+  height: auto !important;
+  line-height: normal !important;
+  padding: 16px 24px !important;
+}
+
+.mobile-nav-menu ::ng-deep .ant-menu-title-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mobile-nav-menu .nav-zh {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.mobile-nav-menu .nav-en {
+  font-size: 0.8rem;
+}
+
+/* submenu 標題樣式 */
+/* 重點：submenu 標題內的文字也要換行 */
+::ng-deep .mobile-nav-menu .ant-menu-submenu-title .nav-zh,
+::ng-deep .mobile-nav-menu .ant-menu-submenu-title .nav-en {
+  display: block;
+}
+
+::ng-deep .mobile-nav-menu .ant-menu-submenu-title {
+  height: auto !important;
+  line-height: 1.4 !important;
+  padding: 12px 24px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* 讓 title span 佔滿寬度 */
+::ng-deep .mobile-nav-menu .ant-menu-submenu-title > span[title] {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* 箭頭位置調整 */
+::ng-deep .mobile-nav-menu .ant-menu-submenu-arrow {
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* submenu 子選單 */
+::ng-deep .mobile-nav-menu .ant-menu-sub {
+  background: #f8f6f3 !important;
+}
+
+::ng-deep .mobile-nav-menu .ant-menu-sub .ant-menu-item:hover {
+  color: #5d4e3a;
+  background: rgba(139, 115, 85, 0.1);
+}
+
+/* 選中效果 */
+::ng-deep .mobile-nav-menu .ant-menu-item-selected {
+  background: rgba(139, 115, 85, 0.1) !important;
+}
+
+::ng-deep .mobile-nav-menu .ant-menu-item-selected .nav-zh,
+::ng-deep .mobile-nav-menu .ant-menu-item-selected .nav-en {
+  color: #8b7355;
+}
+
+/* submenu 子選單項目 */
+::ng-deep .mobile-nav-menu .ant-menu-sub .ant-menu-item {
+  color: #8b7355;
+  border-left: 2px solid #d4c4a8;
+  margin: 0 !important;
+  padding: 12px 24px 12px 32px !important;
+  width: 100%;
+}
+
+::ng-deep .mobile-nav-menu .ant-menu-sub .ant-menu-item:hover,
+::ng-deep .mobile-nav-menu .ant-menu-sub .ant-menu-item-selected {
+  color: #5d4e3a;
+  background: rgba(139, 115, 85, 0.1) !important;
+  border-left-color: #8b7355;
+}
+
+/* 移除預設的選中樣式 */
+::ng-deep .mobile-nav-menu .ant-menu-item-selected::after,
+::ng-deep .mobile-nav-menu .ant-menu-sub .ant-menu-item-selected::after {
+  display: none !important;
+}
+
+/* ===== Footer ===== */
 .footer {
   background: var(--cream);
   padding: 32px 48px;
@@ -172,12 +278,8 @@
   margin: 0;
 }
 
-.mobile-menu-btn{
-  display: none;
-}
-
-@media (max-width: 900px) {
-  /* Header & Nav */
+/* ===== RWD ===== */
+@media (max-width: 920px) {
   .header {
     padding: 0 16px;
     height: 70px;
@@ -187,48 +289,20 @@
     padding: 0 12px;
   }
 
-  /* Footer */
+  .nav-menu {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .footer {
+    padding: 24px 16px;
+  }
+
   .footer-content {
     flex-direction: column;
     text-align: center;
   }
-
-  .mobile-menu-btn{
-    display: block;
-  }
-
-  .nav-menu{
-    display: none;
-  }
-}
-
-/* --- 抽屜內選單樣式 --- */
-.mobile-nav-menu {
-  border-right: none;
-}
-
-/* 讓手機版選單也支援中英文上下排，但改為靠左對齊 */
-.mobile-nav-menu ::ng-deep .ant-menu-item {
-  height: auto !important;
-  padding: 16px 24px !important;
-  line-height: normal !important;
-}
-
-.mobile-nav-menu ::ng-deep .ant-menu-title-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-/* 微調手機版文字大小 */
-.mobile-nav-menu .nav-zh {
-  font-size: 1.1rem;
-  color: var(--dark-green);
-  margin-bottom: 4px;
-}
-
-.mobile-nav-menu .nav-en {
-  font-size: 0.8rem;
-  color: var(--accent-gold);
 }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -80,6 +80,14 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
+  // 監聽視窗大小變化，超過 920px 自動關閉抽屜
+  @HostListener('window:resize', [])
+  onResize(): void {
+    if (this.isBrowser && window.innerWidth > 920 && this.visible) {
+      this.close();
+    }
+  }
+
   /**
   * 僅當前路徑完全相等時返回 true
   * @param url
@@ -95,17 +103,35 @@ export class MainComponent implements OnInit, OnDestroy {
    */
   scrollHandlerFn(): void {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const carouselHeight = document.querySelector('.hero-carousel')?.clientHeight || 0;
-    const currentPath = this.router.url.split('?')[0].split('#')[0]; // 移除 query 和 fragment
+    const carouselHeight = document.querySelector('.hero-slide')?.clientHeight || 0;
+    const currentPath = this.router.url.split('?')[0].split('#')[0];
     const isHomePage = currentPath === '/home' || currentPath === '/';
 
-    if (this.isScrolling || !isHomePage || scrollTop < carouselHeight - 100) {
+    if (this.isScrolling || !isHomePage) {
       if (!isHomePage) {
         this.activeSection = '';
       }
       return;
     }
 
+    // 還在輪播區域內，不選中任何導覽
+    if (scrollTop < carouselHeight - 100) {
+      this.activeSection = '';
+      return;
+    }
+
+    // 檢查是否滾動到底部
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.body.scrollHeight;
+    const isAtBottom = scrollTop + windowHeight >= documentHeight - 50;
+
+    // 如果在底部，選中最後一個區塊
+    if (isAtBottom) {
+      this.activeSection = this.sections[this.sections.length - 1]; // 'contact'
+      return;
+    }
+
+    // 一般滾動判斷
     for (let i = this.sections.length - 1; i >= 0; i--) {
       const element = document.getElementById(this.sections[i]);
       if (element && element.offsetTop <= scrollTop + 100) {
@@ -119,30 +145,69 @@ export class MainComponent implements OnInit, OnDestroy {
    * 點擊導覽列跳到指定區塊
    * @param sectionId
    */
-  scrollTo(sectionId: string): void {
-    // 點擊時鎖定，防止滾動過程中亂跳
-    this.isScrolling = true;
-    this.activeSection = sectionId;
-    this.close();
+    scrollTo(sectionId: string): void {
+      this.isScrolling = true;
+      this.activeSection = sectionId;
 
-    // 判斷是否在首頁
-    if (this.router.url === '/home') {
-      // 在首頁，直接滾動
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => {
-        this.isScrolling = false;
-      }, 800);
+      const wasDrawerOpen = this.visible;
+      this.close();
+
+      const currentPath = this.router.url.split('?')[0].split('#')[0];
+      const isHomePage = currentPath === '/home' || currentPath === '/';
+      const delay = wasDrawerOpen ? 400 : 0;
+
+      if (isHomePage) {
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+
+          if (element) {
+            const headerHeight = 80;
+            const targetPosition = element.offsetTop - headerHeight;
+
+            // 直接用 body.scrollTop
+            document.body.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+
+          setTimeout(() => {
+            this.isScrolling = false;
+          }, 800);
+        }, delay);
+      }
+      else {
+        this.router.navigate(['/home'], { fragment: sectionId }).then(() => {
+          setTimeout(() => {
+            const element = document.getElementById(sectionId);
+
+            if (element) {
+              const headerHeight = 80;
+              const targetPosition = element.offsetTop - headerHeight;
+
+              document.body.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+            }
+            this.isScrolling = false;
+          }, 500);
+        });
+      }
+    }
+
+  /**
+   * 抽屜選單導覽列點擊
+   * @param item
+   */
+  handleNavClick(item: any): void {
+    if (item.route) {
+      this.router.navigate([item.route]);
+      this.close();
     }
     else {
-      // 不在首頁，先跳轉再滾動
-      this.router.navigate(['/home'], { fragment: sectionId }).then(() => {
-        setTimeout(() => {
-          document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-          this.isScrolling = false;
-        }, 300); // 等待頁面渲染
-      });
+      this.scrollTo(item.id);
     }
-
   }
 
   /**

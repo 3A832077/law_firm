@@ -86,8 +86,4 @@ export class LawyerDeatilComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  onImageError(event: Event): void {
-    const img = event.target as HTMLImageElement;
-    img.src = 'img/default-avatar.png';
-  }
 }

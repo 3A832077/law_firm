@@ -69,10 +69,16 @@ export class LawyersComponent implements OnInit{
     this.updatePaginatedLawyers();
   }
 
+  /**
+   * 返回首頁
+   */
   onBack(){
     this.router.navigate(['/home']);
   }
 
+  /**
+   * 模擬搜尋律師
+   */
   filterLawyers(): void {
     this.filteredLawyers = this.allLawyers.filter(lawyer => {
       const matchesSearch = !this.searchText || lawyer.name.includes(this.searchText)
@@ -83,6 +89,9 @@ export class LawyersComponent implements OnInit{
     this.updatePaginatedLawyers();
   }
 
+  /**
+   * 重置篩選條件
+   */
   resetFilters(): void {
     this.searchText = '';
     this.filteredLawyers = [...this.allLawyers];
@@ -90,11 +99,18 @@ export class LawyersComponent implements OnInit{
     this.updatePaginatedLawyers();
   }
 
+  /**
+   * 換頁
+   * @param page
+   */
   onPageChange(page: number): void {
     this.currentPage = page;
     this.updatePaginatedLawyers();
   }
 
+  /**
+   * 換頁改變列表
+   */
   private updatePaginatedLawyers(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;

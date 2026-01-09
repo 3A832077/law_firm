@@ -7,7 +7,7 @@
           <nz-page-header (nzBack)="onBack()" nzBackIcon nzSubtitle="返回首頁"></nz-page-header>
         </div>
         <div class="filter-right">
-          <nz-date-picker nzMode="year" [(ngModel)]="selectedYearDate" (ngModelChange)="onFilter()" nzFormat="yyyy"
+          <nz-date-picker nzMode="year" [(ngModel)]="selectedYearDate" (ngModelChange)="filterArticles()" nzFormat="yyyy"
             nzPlaceHolder="選擇年份" nzVariant="underlined">
           </nz-date-picker>
           <nz-select [(ngModel)]="sortBy" class="filter-select sort-select" (ngModelChange)="onSort()" nzVariant="underlined">
@@ -15,7 +15,7 @@
             <nz-option nzValue="oldest" nzLabel="最舊發布"></nz-option>
             <nz-option nzValue="title" nzLabel="標題排序"></nz-option>
           </nz-select>
-          <nz-input-search nzAllowClear (nzSearch)="onSearch()" class="search-input">
+          <nz-input-search nzAllowClear (nzSearch)="filterArticles()" class="search-input">
             <input nz-input [(ngModel)]="searchText" placeholder="搜尋文章，內容" />
           </nz-input-search>
         </div>
