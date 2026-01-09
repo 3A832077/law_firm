@@ -48,7 +48,6 @@
 .header-gradient {
   position: absolute;
   inset: 0;
-  /* background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%); */
 }
 
 .header-content {
@@ -197,74 +196,18 @@
 .article-body {
   font-family: 'Noto Serif TC', serif;
   font-size: 1.1rem;
-  line-height: 2;
+  line-height: 4;
   color: var(--body-text);
 }
 
-:host ::ng-deep .article-body h2 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--dark-text);
-  margin: 56px 0 24px;
-  padding-bottom: 12px;
-}
-
-:host ::ng-deep .article-body h3 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--dark-text);
-  margin: 40px 0 16px;
-}
-
-:host ::ng-deep .article-body p {
-  margin: 0 0 24px;
+.article-body p {
+  margin: 0 0 28px;
   text-align: justify;
+  text-indent: 2em;
 }
 
-:host ::ng-deep .article-body blockquote {
-  margin: 32px 0;
-  padding: 24px 32px;
-  background: linear-gradient(135deg, rgba(45, 90, 39, 0.05), rgba(201, 169, 97, 0.05));
-  border-left: 4px solid var(--accent-gold);
-  border-radius: 0 8px 8px 0;
-  font-style: italic;
-  color: #555;
-}
-
-:host ::ng-deep .article-body ul,
-:host ::ng-deep .article-body ol {
-  margin: 24px 0;
-  padding-left: 24px;
-}
-
-:host ::ng-deep .article-body li {
-  margin-bottom: 12px;
-}
-
-:host ::ng-deep .article-body a {
-  color: var(--primary-green);
-  text-decoration: underline;
-  text-decoration-color: var(--accent-gold);
-  text-underline-offset: 4px;
-  transition: all 0.3s ease;
-}
-
-:host ::ng-deep .article-body a:hover {
-  color: var(--dark-green);
-}
-
-:host ::ng-deep .article-body strong {
-  font-weight: 600;
-  color: var(--dark-text);
-}
-
-:host ::ng-deep .article-body img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin: 24px 0;
+.article-body p:last-child {
+  margin-bottom: 0;
 }
 
 .update-info {
@@ -597,14 +540,6 @@
   .article-content {
     padding: 24px;
     border-radius: 12px;
-  }
-
-  .article-cover {
-    margin: 0 -24px 24px;
-  }
-
-  .article-cover figcaption {
-    padding: 12px 24px;
   }
 
   .article-body {

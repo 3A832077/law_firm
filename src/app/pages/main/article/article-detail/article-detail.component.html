@@ -46,16 +46,12 @@
     <div class="article-container">
       <!-- 中間：文章內容 -->
       <article class="article-content">
-        <!-- 封面圖 -->
-        @if (article.coverImage) {
-          <figure class="article-cover">
-            <img [src]="article.coverImage" [alt]="article.title" />
-            <figcaption>圖片來源：示意圖</figcaption>
-          </figure>
-        }
-
         <!-- 文章正文 -->
-        <div class="article-body" [innerHTML]="article.content"></div>
+        <div class="article-body">
+          @for (paragraph of contentParagraphs; track $index) {
+            <p>{{ paragraph }}</p>
+          }
+        </div>
 
         <!-- 更新資訊 -->
         @if (article.updateDate) {
