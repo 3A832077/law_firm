@@ -1,0 +1,74 @@
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <div class="login-header">
+      <div class="logo-title">律師事務所</div>
+      <p class="login-desc">後台管理</p>
+    </div>
+
+    @if (loginError) {
+      <nz-alert
+        nzType="error"
+        nzMessage="帳號或密碼錯誤，請重新輸入"
+        [nzCloseable]="true"
+        (nzOnClose)="loginError = false"
+        style="margin-bottom: 24px;"
+      ></nz-alert>
+    }
+
+    <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+
+      <nz-form-item>
+        <nz-form-label nzRequired>帳號</nz-form-label>
+        <nz-form-control nzErrorTip="請輸入帳號">
+          <nz-input-wrapper>
+            <nz-icon nzInputPrefix nzType="user" />
+            <input nz-input placeholder="請輸入帳號" formControlName="username" autocomplete="username"/>
+          </nz-input-wrapper>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>密碼</nz-form-label>
+        <nz-form-control nzErrorTip="密碼至少 6 個字元">
+          <nz-input-wrapper>
+            <nz-icon nzInputPrefix nzType="lock" />
+            <input
+              nz-input
+              [type]="passwordVisible ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="請輸入密碼"
+              autocomplete="current-password"
+            />
+          </nz-input-wrapper>
+          <ng-template #lockIcon><nz-icon nzType="lock" /></ng-template>
+          <ng-template #eyeIcon>
+            <nz-icon
+              [nzType]="passwordVisible ? 'eye' : 'eye-invisible'"
+              (click)="passwordVisible = !passwordVisible"
+              style="cursor: pointer;"
+            />
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button
+        nz-button
+        nzType="primary"
+        nzBlock
+        [nzLoading]="isLoading"
+        type="submit"
+        class="login-btn"
+      >
+        登入
+      </button>
+
+    </form>
+
+    <div class="login-hint">
+      <nz-icon nzType="info-circle" style="margin-right: 6px;"></nz-icon>
+      測試帳號：admin &nbsp;／&nbsp; 密碼：admin123
+    </div>
+
+  </div>
+</div>

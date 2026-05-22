@@ -1,0 +1,603 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:host {
+  --primary-green: #2d5a27;
+  --dark-green: #1a3518;
+  --light-green: #4a7c43;
+  --accent-gold: #c9a961;
+  --cream: #faf8f5;
+  --warm-white: #fffef9;
+  --dark-text: #1a1a1a;
+  --body-text: #333;
+  --light-text: #f5f5f5;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 24px rgba(0, 0, 0, 0.1);
+  display: block;
+  background: var(--cream);
+}
+
+/* ===== Hero 區 ===== */
+.hero-section {
+  position: relative;
+  height: 200px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 60px 48px 0;
+}
+
+.breadcrumb-wrapper {
+  margin-bottom: 16px;
+}
+
+:host ::ng-deep .ant-breadcrumb a,
+:host ::ng-deep .ant-breadcrumb-link,
+:host ::ng-deep .ant-breadcrumb-separator {
+  color: var(--dark-text) !important;
+}
+
+:host ::ng-deep .ant-breadcrumb a:hover {
+  color: var(--accent-gold) !important;
+}
+
+/* ===== 主要內容區 ===== */
+.profile-section {
+  position: relative;
+  margin-top: -60px;
+  padding: 0 48px 80px;
+}
+
+.profile-container {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ===== 左側資訊卡 ===== */
+.profile-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.profile-card {
+  background: var(--warm-white);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: var(--shadow-medium);
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 24px;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--accent-gold);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* .avatar-decoration {
+  position: absolute;
+  inset: -8px;
+  border: 2px dashed var(--accent-gold);
+  border-radius: 50%;
+  opacity: 0.3;
+} */
+
+.basic-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.lawyer-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin: 0 0 4px;
+}
+
+.lawyer-english {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--primary-green);
+  font-style: italic;
+  margin: 0 0 8px;
+}
+
+.lawyer-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+.lawyer-motto {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.95rem;
+  color: #555;
+  font-style: italic;
+  margin: 20px 0 0;
+  padding: 16px;
+  background: rgba(45, 90, 39, 0.05);
+  border-radius: 8px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.specialty-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+:host ::ng-deep .specialty-tags .ant-tag {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.85rem;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin: 0;
+}
+
+:host ::ng-deep .specialty-tags .ant-tag-green {
+  background: rgba(45, 90, 39, 0.1);
+  border-color: rgba(45, 90, 39, 0.2);
+  color: var(--primary-green);
+}
+
+.info-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-title .anticon {
+  color: var(--accent-gold);
+}
+
+.contact-info, .languages-info {
+  margin-bottom: 8px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 0.9rem;
+}
+
+.contact-item .anticon {
+  color: var(--primary-green);
+}
+
+.contact-item a {
+  color: var(--body-text);
+  transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+  color: var(--primary-green);
+}
+
+.language-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.language-tag {
+  font-size: 0.85rem;
+  padding: 4px 12px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  color: #666;
+}
+
+.cta-buttons {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.consult-btn {
+  background: var(--primary-green) !important;
+  border-color: var(--primary-green) !important;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.consult-btn:hover {
+  background: var(--dark-green) !important;
+  border-color: var(--dark-green) !important;
+}
+
+.contact-btn {
+  font-family: 'Noto Serif TC', serif;
+  height: 48px;
+  border-radius: 8px;
+  border-color: var(--border-color);
+}
+
+.contact-btn:hover {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+/* ===== 右側詳細資訊 ===== */
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section-card {
+  background: var(--warm-white);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+}
+
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin: 0 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-icon {
+  font-size: 1.5rem;
+}
+
+.title-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold), transparent);
+  margin-left: 8px;
+}
+
+/* 專業領域 */
+.expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.expertise-item {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: #f8f7f5;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.expertise-item:hover {
+  background: rgba(45, 90, 39, 0.05);
+  transform: translateY(-2px);
+}
+
+.expertise-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.expertise-content {
+  flex: 1;
+}
+
+.expertise-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin: 0 0 6px;
+}
+
+.expertise-desc {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 學經歷 */
+.subsection-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-green);
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+:host ::ng-deep .education-timeline .ant-timeline-item-tail,
+:host ::ng-deep .experience-timeline .ant-timeline-item-tail {
+  border-left: 2px dashed #e8e8e8;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timeline-degree, .timeline-position {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+:host ::ng-deep .current-tag.ant-tag {
+  font-size: 0.7rem;
+  padding: 0 6px;
+  line-height: 18px;
+  margin: 0;
+}
+
+.timeline-school, .timeline-org {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.timeline-major, .timeline-period {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.timeline-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--accent-gold);
+}
+
+/* 案件經歷 */
+.cases-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.case-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8f7f5;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--body-text);
+  line-height: 1.5;
+}
+
+.case-bullet {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+/* 著作 */
+.publications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.publication-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: #f8f7f5;
+  border-radius: 8px;
+  align-items: flex-start;
+}
+
+.pub-type {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  background: var(--primary-green);
+  padding: 4px 10px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.pub-content {
+  flex: 1;
+}
+
+.pub-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark-text);
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+
+.pub-title a {
+  color: var(--dark-text);
+  transition: color 0.3s ease;
+}
+
+.pub-title a:hover {
+  color: var(--primary-green);
+}
+
+.pub-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* 相關文章 */
+.articles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.article-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #f8f7f5;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.article-item:hover {
+  background: rgba(45, 90, 39, 0.05);
+  padding-left: 20px;
+}
+
+.article-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+:host ::ng-deep .article-info .ant-tag {
+  flex-shrink: 0;
+}
+
+.article-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dark-text);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.article-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: #888;
+  flex-shrink: 0;
+}
+
+.view-all {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.view-all a {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.9rem;
+  color: var(--primary-green);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.3s ease;
+}
+
+.view-all a:hover {
+  gap: 10px;
+}
+
+/* ===== RWD ===== */
+@media (max-width: 1100px) {
+  .profile-container {
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+  }
+
+}
+
+@media (max-width: 992px) {
+  .hero-content {
+    padding: 100px 24px 0;
+  }
+
+  .profile-section {
+    padding: 0 24px 60px;
+  }
+
+  .profile-container {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-sidebar {
+    position: static;
+  }
+
+  .profile-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .expertise-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cases-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 160px;
+  }
+
+  .hero-content {
+    padding: 80px 16px 0;
+  }
+
+  .profile-section {
+    padding: 0 16px 48px;
+    margin-top: -40px;
+  }
+
+  .section-card {
+    padding: 24px;
+  }
+
+}

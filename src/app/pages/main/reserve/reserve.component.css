@@ -1,0 +1,146 @@
+.reserve-page {
+  min-height: 80vh;
+  background-color: var(--cream);
+  padding-bottom: 80px;
+}
+
+.page-header {
+  background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+  padding: 48px 40px 40px;
+  color: #fff;
+}
+
+.page-header nz-breadcrumb {
+  margin-bottom: 16px;
+}
+
+.page-header :deep(.ant-breadcrumb a),
+.page-header :deep(.ant-breadcrumb-separator),
+.page-header :deep(.ant-breadcrumb-link) {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.page-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  color: var(--accent-gold);
+  letter-spacing: 3px;
+  margin-top: 6px;
+}
+
+.reserve-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.form-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: var(--shadow-soft);
+}
+
+.form-intro {
+  margin-bottom: 4px;
+}
+
+.form-intro p {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.notice-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notice-list li {
+  font-size: 14px;
+  color: #666;
+}
+
+.reserve-form {
+  margin-top: 8px;
+}
+
+.capacity-block {
+  background: #f9f9f9;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.capacity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.capacity-label {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.capacity-count {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--primary-green);
+}
+
+.capacity-count.full {
+  color: #ff4d4f;
+}
+
+.submit-area {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.submit-btn {
+  min-width: 180px;
+  height: 48px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  background-color: var(--primary-green) !important;
+  border-color: var(--primary-green) !important;
+}
+
+.submit-btn:hover {
+  background-color: var(--light-green) !important;
+  border-color: var(--light-green) !important;
+}
+
+.circleIcon{
+  color: var(--primary-green);
+  margin-right: 6px;
+}
+
+@media (max-width: 576px) {
+  .page-header {
+    padding: 32px 24px 28px;
+  }
+  .form-wrapper {
+    padding: 24px 20px;
+  }
+}

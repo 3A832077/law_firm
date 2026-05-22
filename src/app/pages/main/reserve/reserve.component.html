@@ -1,0 +1,195 @@
+<div class="reserve-page">
+
+  <div class="page-header">
+    <nz-breadcrumb>
+      <nz-breadcrumb-item><a routerLink="/home">首頁</a></nz-breadcrumb-item>
+      <nz-breadcrumb-item>預約諮詢</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <h1 class="page-title">預約諮詢</h1>
+    <p class="page-subtitle">CONSULTATION RESERVATION</p>
+  </div>
+
+  <div class="reserve-container">
+
+    @if (submitted) {
+      <!-- 送出成功畫面 -->
+      <nz-result
+        nzStatus="success"
+        nzTitle="預約成功！"
+        nzSubTitle="我們已收到您的預約，將於 1-2 個工作天內以電話確認預約時間。"
+      >
+        <div nz-result-extra>
+          <button nz-button nzType="primary" (click)="reset()">再次預約</button>
+          <button nz-button nzType="default" routerLink="/home" style="margin-left: 8px;">返回首頁</button>
+        </div>
+      </nz-result>
+    }
+
+    @if (!submitted) {
+      <div class="form-wrapper">
+        <div class="form-intro">
+          <p>請填寫以下資料，我們的律師團隊將盡快與您聯繫確認。</p>
+          <ul class="notice-list">
+            <li>
+              <nz-icon nzType="check-circle" class="circleIcon"></nz-icon>
+              <span>諮詢費用依個案性質由律師說明</span>
+            </li>
+            <li>
+              <nz-icon nzType="check-circle" class="circleIcon"></nz-icon>
+              <span>初次諮詢約 30 至 60 分鐘</span>
+            </li>
+            <li>
+              <nz-icon nzType="check-circle" class="circleIcon"></nz-icon>
+              <span>請攜帶相關文件以利說明</span>
+            </li>
+          </ul>
+        </div>
+
+        <nz-divider></nz-divider>
+
+        <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()" nzLayout="vertical" class="reserve-form">
+
+          <!-- 律師選擇 -->
+          <nz-form-item>
+            <nz-form-label nzRequired>選擇律師</nz-form-label>
+            <nz-form-control nzErrorTip="請選擇欲諮詢的律師">
+              <nz-select
+                formControlName="lawyerId"
+                nzPlaceHolder="請選擇律師"
+                nzShowSearch
+                style="width: 100%"
+              >
+                @for (lawyer of lawyers; track lawyer.id) {
+                  <nz-option [nzValue]="lawyer.id" [nzLabel]="lawyer.name + ' ' + lawyer.title"></nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- 容量狀態提示（選了律師＋日期才顯示） -->
+          @if (showCapacity) {
+            <div class="capacity-block">
+              <div class="capacity-header">
+                <span class="capacity-label">
+                  <nz-icon nzType="calendar"></nz-icon>
+                  {{ selectedLawyerName }} 當日預約狀況
+                </span>
+                <span class="capacity-count" [class.full]="isFullyBooked">
+                  {{ bookingCount }} / {{ maxCapacity }}
+                </span>
+              </div>
+              <nz-progress
+                [nzPercent]="capacityPercent"
+                [nzStatus]="capacityStatus"
+                nzSize="small"
+              ></nz-progress>
+              @if (isFullyBooked) {
+                <nz-alert
+                  nzType="error"
+                  nzMessage="此律師當日預約已額滿，請選擇其他日期或律師"
+                  nzShowIcon
+                  style="margin-top: 8px;"
+                ></nz-alert>
+              } @else if (bookingCount >= maxCapacity - 1) {
+                <nz-alert
+                  nzType="warning"
+                  nzMessage="此律師當日僅剩 1 個名額，請盡速完成預約"
+                  nzShowIcon
+                  style="margin-top: 8px;"
+                ></nz-alert>
+              }
+            </div>
+          }
+
+          <nz-divider></nz-divider>
+
+          <div nz-row [nzGutter]="24">
+            <div nz-col [nzXs]="24" [nzSm]="12">
+              <nz-form-item>
+                <nz-form-label nzRequired>預約人姓名</nz-form-label>
+                <nz-form-control nzErrorTip="請輸入至少 2 個字的姓名">
+                  <nz-input-wrapper>
+                    <nz-icon nzInputPrefix nzType="user"></nz-icon>
+                    <input nz-input formControlName="name" placeholder="請輸入姓名" />
+                  </nz-input-wrapper>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col [nzXs]="24" [nzSm]="12">
+              <nz-form-item>
+                <nz-form-label nzRequired>聯絡電話</nz-form-label>
+                <nz-form-control nzErrorTip="請輸入有效的台灣電話號碼（如 0912345678）">
+                  <nz-input-wrapper>
+                    <nz-icon nzInputPrefix nzType="phone"></nz-icon>
+                    <input nz-input formControlName="phone" placeholder="請輸入聯絡電話" />
+                  </nz-input-wrapper>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <div nz-row [nzGutter]="24">
+            <div nz-col [nzXs]="24" [nzSm]="12">
+              <nz-form-item>
+                <nz-form-label nzRequired>預約日期</nz-form-label>
+                <nz-form-control nzErrorTip="請選擇預約日期">
+                  <nz-date-picker
+                    formControlName="date"
+                    style="width: 100%"
+                    [nzDisabledDate]="disabledDate"
+                    nzPlaceHolder="請選擇日期"
+                  ></nz-date-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col [nzXs]="24" [nzSm]="12">
+              <nz-form-item>
+                <nz-form-label nzRequired>希望諮詢時段</nz-form-label>
+                <nz-form-control nzErrorTip="請選擇時間">
+                  <nz-time-picker
+                    formControlName="time"
+                    style="width: 100%"
+                    nzFormat="HH:mm"
+                    nzPlaceHolder="請選擇時間"
+                    [nzMinuteStep]="30"
+                  ></nz-time-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <nz-form-item>
+            <nz-form-label>備註（案件概述或問題描述）</nz-form-label>
+            <nz-form-control>
+              <textarea
+                nz-input
+                formControlName="remark"
+                placeholder="請簡述您的法律問題，讓律師提前做好準備（選填）"
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+
+          <div class="submit-area">
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="large"
+              [nzLoading]="isSubmitting"
+              [disabled]="isFullyBooked"
+              type="submit"
+              class="submit-btn"
+            >
+              <nz-icon nzType="calendar"></nz-icon>
+              送出預約
+            </button>
+          </div>
+
+        </form>
+      </div>
+    }
+
+  </div>
+</div>
