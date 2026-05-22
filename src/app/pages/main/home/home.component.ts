@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
@@ -19,12 +19,21 @@ import { first } from 'rxjs';
 @Component({
   selector: 'app-home',
   imports: [
-    CommonModule, NzLayoutModule, NzMenuModule,
-    NzCarouselModule, NzCardModule, NzGridModule,
-    NzDividerModule, NzButtonModule, MatTooltipModule,
-    NzIconModule, NzTypographyModule, NzDrawerModule,
-    RevealOnScrollDirective, NzFloatButtonModule, RouterLink,
-  ],
+    NzLayoutModule,
+    NzMenuModule,
+    NzCarouselModule,
+    NzCardModule,
+    NzGridModule,
+    NzDividerModule,
+    NzButtonModule,
+    MatTooltipModule,
+    NzIconModule,
+    NzTypographyModule,
+    NzDrawerModule,
+    RevealOnScrollDirective,
+    NzFloatButtonModule,
+    RouterLink
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

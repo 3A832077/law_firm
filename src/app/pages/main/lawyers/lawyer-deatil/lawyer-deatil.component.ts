@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID, Input } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -17,7 +17,6 @@ import { DataService } from '../../../../services/data.service';
 @Component({
   selector: 'app-lawyer-deatil',
   imports: [
-    CommonModule,
     RouterModule,
     NzBreadCrumbModule,
     NzButtonModule,
@@ -29,8 +28,8 @@ import { DataService } from '../../../../services/data.service';
     NzTimelineModule,
     NzTabsModule,
     NzCollapseModule,
-    NzResultModule,
-  ],
+    NzResultModule
+],
   templateUrl: './lawyer-deatil.component.html',
   styleUrl: './lawyer-deatil.component.css',
 })

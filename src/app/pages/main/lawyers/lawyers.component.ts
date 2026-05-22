@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser, ViewportScroller } from '@angular/common';
+import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -19,7 +19,6 @@ import { DataService } from '../../../services/data.service';
 @Component({
   selector: 'app-lawyers',
   imports: [
-    CommonModule,
     RouterModule,
     FormsModule,
     NzGridModule,
@@ -33,7 +32,7 @@ import { DataService } from '../../../services/data.service';
     NzPageHeaderModule,
     NzPaginationModule,
     MatTooltipModule
-  ],
+],
   templateUrl: './lawyers.component.html',
   styleUrl: './lawyers.component.css',
 })

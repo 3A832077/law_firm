@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -19,7 +19,6 @@ import { DataService } from '../../../services/data.service';
 @Component({
   selector: 'app-article',
   imports: [
-    CommonModule,
     RouterModule,
     FormsModule,
     NzGridModule,
@@ -33,7 +32,7 @@ import { DataService } from '../../../services/data.service';
     NzDividerModule,
     NzPageHeaderModule,
     NzDatePickerModule
-  ],
+],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css',
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID, input, Input } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -17,7 +17,6 @@ import { DataService } from '../../../../services/data.service';
 @Component({
   selector: 'app-article-detail',
   imports: [
-    CommonModule,
     RouterModule,
     NzBreadCrumbModule,
     NzButtonModule,
@@ -28,8 +27,8 @@ import { DataService } from '../../../../services/data.service';
     NzCardModule,
     NzAnchorModule,
     NzSkeletonModule,
-    NzResultModule,
-  ],
+    NzResultModule
+],
   templateUrl: './article-detail.component.html',
   styleUrl: './article-detail.component.css',
 })

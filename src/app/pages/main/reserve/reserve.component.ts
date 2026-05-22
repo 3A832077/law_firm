@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -22,7 +21,6 @@ import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-reserve',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     RouterModule,
     NzFormModule,
@@ -36,8 +34,8 @@ import { formatDate } from '@angular/common';
     NzBreadCrumbModule,
     NzSelectModule,
     NzAlertModule,
-    NzProgressModule,
-  ],
+    NzProgressModule
+],
   templateUrl: './reserve.component.html',
   styleUrl: './reserve.component.css',
 })

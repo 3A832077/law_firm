@@ -1,5 +1,5 @@
 import { Component, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
@@ -17,12 +17,21 @@ import { NzDropdownMenuComponent, NzDropDownModule } from 'ng-zorro-antd/dropdow
 @Component({
   selector: 'app-main',
   imports: [
-    CommonModule, NzLayoutModule, NzMenuModule,
-    NzCarouselModule, NzCardModule, NzGridModule,
-    NzDividerModule, NzButtonModule, MatTooltipModule,
-    NzIconModule, NzTypographyModule, RouterOutlet,
-    RouterLink, NzDrawerModule, NzDropDownModule
-  ],
+    NzLayoutModule,
+    NzMenuModule,
+    NzCarouselModule,
+    NzCardModule,
+    NzGridModule,
+    NzDividerModule,
+    NzButtonModule,
+    MatTooltipModule,
+    NzIconModule,
+    NzTypographyModule,
+    RouterOutlet,
+    RouterLink,
+    NzDrawerModule,
+    NzDropDownModule
+],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })
