@@ -10,6 +10,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
 import { RevealOnScrollDirective } from '../../../directive/reveal-on-scroll.directive';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { data } from '../../../data';
@@ -22,8 +23,7 @@ import { first } from 'rxjs';
     NzCarouselModule, NzCardModule, NzGridModule,
     NzDividerModule, NzButtonModule, MatTooltipModule,
     NzIconModule, NzTypographyModule, NzDrawerModule,
-    RevealOnScrollDirective,
-    RouterLink
+    RevealOnScrollDirective, NzFloatButtonModule, RouterLink,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -43,8 +43,13 @@ export class HomeComponent implements OnInit{
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
     private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  goToReserve(): void {
+    this.router.navigate(['/reserve']);
   }
 
   ngOnInit(): void {

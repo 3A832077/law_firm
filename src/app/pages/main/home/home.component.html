@@ -128,15 +128,15 @@
       </div>
     }
     </div>
-    <!-- 預約諮詢入口 -->
-    <div class="reserve-cta">
-      <p class="reserve-cta-text">需要法律協助？立即預約律師諮詢。</p>
-      <a routerLink="/reserve">
-        <button nz-button nzType="primary" nzSize="large" class="reserve-cta-btn">
-          <span nz-icon nzType="calendar"></span>
-          <span>預約諮詢</span>
-        </button>
-      </a>
-    </div>
   </div>
 </div>
+<!-- 懸浮預約按鈕 -->
+<nz-float-button
+  nzType="primary"
+  nzShape="circle"
+  nzIcon="calendar"
+  (nzOnClick)="goToReserve()"
+  matTooltip="預約諮詢"
+  matTooltipPosition="above"
+  >
+</nz-float-button>

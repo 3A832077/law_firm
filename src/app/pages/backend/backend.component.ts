@@ -5,7 +5,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../services/auth.service';
@@ -36,6 +36,7 @@ export class BackendComponent implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthService,
+    private modal: NzModalService,
   ) {}
 
   ngOnInit(): void {
@@ -58,8 +59,14 @@ export class BackendComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.modal.confirm({
+      nzTitle: '確定要登出嗎？',
+      nzOkText: '登出',
+      nzCancelText: '取消',
+      nzOnOk: () => {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+      }
+    });
   }
-
 }

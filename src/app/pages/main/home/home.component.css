@@ -302,38 +302,6 @@
   font-size: 1.1rem;
 }
 
-.reserve-cta {
-  text-align: center;
-  margin-top: 48px;
-  padding: 40px;
-  background: linear-gradient(135deg, var(--dark-green), var(--primary-green));
-  border-radius: 16px;
-}
-
-.reserve-cta-text {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-}
-
-.reserve-cta-btn {
-  background-color: var(--accent-gold) !important;
-  border-color: var(--accent-gold) !important;
-  color: var(--dark-green) !important;
-  font-weight: 600;
-  font-family: 'Noto Serif TC', serif;
-  letter-spacing: 2px;
-  height: 48px;
-  padding: 0 32px;
-  font-size: 15px;
-}
-
-.reserve-cta-btn:hover {
-  filter: brightness(1.1);
-}
-
 .reveal {
   position: relative;
   opacity: 0;
@@ -345,6 +313,17 @@
 .reveal.visible {
   opacity: 1;
   transform: translateX(0);
+}
+
+/* 懸浮預約按鈕 - 主題色覆蓋 */
+::ng-deep .ant-btn-primary .ant-float-btn-body {
+  background-color: var(--primary-green) !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+::ng-deep .ant-btn-primary .ant-float-btn-body:hover {
+  background-color: var(--dark-green) !important;
+  box-shadow: 0 6px 24px rgba(201, 169, 97, 0.4);
 }
 
 @media (max-width: 900px) {

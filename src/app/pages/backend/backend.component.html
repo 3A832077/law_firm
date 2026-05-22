@@ -36,12 +36,9 @@
           <button
             nz-button
             nzType="default"
-            nz-popconfirm
-            nzPopconfirmTitle="確定要登出嗎？"
-            nzOkText="登出"
-            nzCancelText="取消"
-            (nzOnConfirm)="logout()"
-            matTooltip="登出" matTooltipPosition="left"
+            (click)="logout()"
+            matTooltip="登出"
+            matTooltipPosition="left"
             style="margin-left: 8px;"
           >
             <nz-icon nzType="logout"></nz-icon>
