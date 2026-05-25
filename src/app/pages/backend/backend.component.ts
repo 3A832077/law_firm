@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GoogleUser } from '../../services/auth.service';
 import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -30,8 +31,8 @@ import { AuthService } from '../../services/auth.service';
 export class BackendComponent implements OnInit {
 
   isCollapsed = false;
-
   isDropdownOpen = false;
+  currentUser: GoogleUser | null = null;
 
   constructor(
     private router: Router,
@@ -40,6 +41,7 @@ export class BackendComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.currentUser = this.authService.getCurrentUser();
   }
 
   /**

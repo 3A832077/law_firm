@@ -75,3 +75,9 @@
   color: var(--light-green);
   text-decoration: underline;
 }
+
+.google-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}

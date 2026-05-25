@@ -61,14 +61,19 @@
         登入
       </button>
 
-      <div class="back-home">
-        <button nz-button nzType="primary" routerLink="/home" class="login-btn" nzBlock>
-          <nz-icon nzType="home" nzTheme="fill"></nz-icon>
-          回首頁
-        </button>
-      </div>
-
     </form>
+
+    <nz-divider nzText="或"></nz-divider>
+
+    <div class="google-btn-wrapper">
+      <div id="google-signin-btn"></div>
+    </div>
+
+    <div class="back-home">
+      <button nz-button nzType="primary" routerLink="/home" class="login-btn" nzBlock>
+        回首頁
+      </button>
+    </div>
 
     <div class="login-hint">
       <nz-icon nzType="info-circle" style="margin-right: 6px;"></nz-icon>
