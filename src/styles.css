@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 html, body {
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
@@ -56,9 +56,37 @@ a:hover {
   color: var(--light-green);
 }
 
+.mb-4 {
+  margin-bottom: 16px;
+}
+
 .buttonDiv {
   margin-top: 16px;
   gap: 10px;
   display: flex;
   justify-content: flex-end;
+}
+
+/* 後台通用樣式 */
+nz-table {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.actionDiv {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
